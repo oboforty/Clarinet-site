@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<div class="container-fluid">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card">
+      <div class="card-header">
+        <span>Edit {{ song.name }}</span>
+      </div>
+      <div class="card-body">
+        {% set form_action = 'edit' %}
+        {% set form_url = url_for('Songs:put', song_id=song.song_id) %}
+
+        {% include 'songs/form.html'%}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+

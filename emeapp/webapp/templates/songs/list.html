@@ -1,0 +1,53 @@
+{% set active_page = "Songs" %}
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1>Songs list</h1>
+
+    <div class="row">
+      <div class="col">
+        <table class="table table-sm table-hover">
+          <thead>
+            <tr>
+              <th>Song</th>
+              <th>Level</th>
+              <th>Key</th>
+              <th>Instrument</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for song in songs %}
+            <tr>
+              <td>
+                <a class="btn btn-sm btn-link" data-toggle="collapse" href="#collapseToken{{song.song_id}}" role="button">
+                  <b>{{ song.name }}</b>
+                </a>
+                <div class="collapse" id="collapseToken{{song.song_id}}">
+                  <div class="card card-body">
+                    <span>By {{ song.artist }}</span>
+                  </div>
+                </div>
+              </td>
+              <td>{{ song.strength }}</td>
+              <td>{{ song.skey }}</td>
+              <td>{{ song.instrument }}
+              <td>
+
+                <a href="{{ url_for('Songs:get_view', song_id=song.song_id) }}" title="{{ song.name }}">View Song</a>
+
+                <a href="{{ url_for('Songs:get_edit', song_id=song.song_id) }}" title="{{ song.name }}">Edit</a>
+                <a href="{{ url_for('Songs:delete', song_id=song.song_id) }}" title="{{ song.name }}">Delete</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="col">
+        <a href="{{ url_for('Songs:get_create') }}" class="btn btn-primary">Create new song</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

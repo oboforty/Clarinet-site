@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>PulseFFT</title>
+  <link rel="icon" href="assets/logo.jpg" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="style/bootstrap/css/bootstrap-social.css" rel="stylesheet">
+  <link href="style/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="style/css/scrolling-nav.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+  <!-- <div id="displaynotes" class="row">
+    <div class="col-4">
+      <div class="card text-white bg-secondary">
+        <div class="card-header"><h5>Concert pitch</h5></div>
+        <div class="card-body">
+          <p class="card-text" id="concert-note"></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card text-white bg-primary">
+        <div class="card-header"><h5>Clarinet pitch</h5></div>
+        <div class="card-body">
+          <p class="card-text" id="transposed-note"></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card text-white bg-success">
+        <div class="card-header"><h5>Fundamental frequency</h5></div>
+        <div class="card-body">
+          <p class="card-text" id="frequency"></p>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="row">
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body">
+          <button class="btn btn-danger" id="docapture">Capture Frequencies</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="front">
+    <div class="container text-center">
+      <div id="graph"></div>
+    </div>
+    <div class="container text-center">
+    </div>
+  </header>
+
+  <!-- d3 DCN -->
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="pulse/index.js"></script>
+  <script src="demo/notefinder.js"></script>
+  <script src="demo/kissFFTasm.js"></script>
+  <script src="demo/FFTasm.js"></script>
+  <script src="demo/benchmarks.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script src="style/bootstrap/jquery/jquery.min.js"></script>
+  <script src="style/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Plugin JavaScript -->
+  <script src="style/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Custom JavaScript for this theme -->
+  <script src="style/js/scrolling-nav.js"></script>
+
+</body>
+
+</html>

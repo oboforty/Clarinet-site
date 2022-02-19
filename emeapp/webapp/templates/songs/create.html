@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+  <div class="d-flex justify-content-center h-100">
+    <div class="card">
+      <div class="card-header">
+        <span>Create new song</span>
+      </div>
+      <div class="card-body" style="min-width: 420px;">
+        {% set form_action = 'create' %}
+        {% set form_url = url_for('Songs:post') %}
+
+        {% include 'songs/form.html'%}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
