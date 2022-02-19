@@ -5,6 +5,8 @@ function draw_note(x,y,w,h,note, show_text) {
   var kR = h/10;
   var startY = y+5*kR;
 
+  let mod = ['#','b'].includes(note[1]) ? note[1] : null;
+
   for(var i = 0; i < 10; i++) {
       // note Y:
       var ny = startY-i*kR;
@@ -20,7 +22,7 @@ function draw_note(x,y,w,h,note, show_text) {
   }
 
   // calculate offset on note sheet
-  var octaveidx = (parseInt(note[1])) - 4;
+  var octaveidx = (parseInt(note[len(note)-1])) - 4;
   var noteidx = note[0].charCodeAt(0) - 69;
   if (note[0]=='A'||note[0]=='B')
     noteidx+=7;
@@ -39,6 +41,11 @@ function draw_note(x,y,w,h,note, show_text) {
   ctx.stroke();
   ctx.closePath();
   ctx.lineWidth = 1;
+
+  // draw sharp/mol
+  if (mod != null) {
+    ctx.fillText(mod, x-24, ny+8);
+  }
 
   // draw helper lines
   if (offsetid < -1) {
@@ -71,7 +78,7 @@ function draw_note(x,y,w,h,note, show_text) {
 
   if (show_text) {
     ctx.fillStyle = "#404040";
-    ctx.fillText(note[0], x-30, y + 24 + h);
+    ctx.fillText(note, x-30, y + 24 + h);
     ctx.fillStyle = "black";  
   }
 }

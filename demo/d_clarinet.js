@@ -29,35 +29,54 @@ function draw_drop_left(x,y,w,h,fill) {
 
 // offset compared to base E
 const clarinet_fingering = {
-    // @TODO: implement banana key and friends
-    "G3": [".XXX|XXX", ""],
-    "A3": [".XXX|XXO", ""],
-    "B3": [".XXX|OXO", ""],
+    "E3":   [" OOO|OOO", ""],
+    "F3":   [" OOO|OOO", ""],
+    "F#3":  [" OOO|OOO", ""],
+    "G3":   [".XXX|XXX", ""],
+    "G#3":  [" OOO|OOO", ""],
+    "A3":   [".XXX|XXO", ""],
+    "A#3":  [" OOO|OOO", ""],
+    "B3":   [".XXX|OXO", ""],
     // ------------------------
-    "C4": [".XXX|OOO", ""],
-    "D4": [".XXO|OOO", ""],
-    "E4": [".XOO|OOO", ""],
-    "F4": [".OOO|OOO", ""],
-    "G4": [" OOO|OOO", ""],
-    "A4": [" OOO|OOO", "A"],
-    "B4": ["!XXX|XXX", "⡀"],
+    "C4":   [".XXX|OOO", ""],
+    "C#4":  [" OOO|OOO", ""],
+    "D4":   [".XXO|OOO", ""],
+    "D#4":  [" OOO|OOO", ""],
+    "E4":   [".XOO|OOO", ""],
+    "F4":   [".OOO|OOO", ""],
+    "F#4":  [" XOO|OOO", ""],
+    "G4":   [" OOO|OOO", ""],
+    "G#4":  [" OOO|OOO", ""],
+    "A4":   [" OOO|OOO", "A"],
+    "A#4":  [" OOO|OOO", ""],
+    "B4":   ["!XXX|XXX", "⡀"],
     // ------------------------
-    "C5": ["!XXX|XXX", "⢀"],
-    "D5": ["!XXX|XXX", ""],
-    "E5": ["!XXX|XXO", ""],
-    "F5": ["!XXX|XOO", ""],
-    "G5": ["!XXX|OOO", ""],
-    "A5": ["!XXO|OOO", ""],
-    "B5": ["!XOO|OOO", ""],
+    "C5":   ["!XXX|XXX", "⢀"],
+    "C#5":  [" OOO|OOO", ""],
+    "D5":   ["!XXX|XXX", ""],
+    "D#5":  [" OOO|OOO", ""],
+    "E5":   ["!XXX|XXO", ""],
+    "F5":   ["!XXX|XOO", ""],
+    "F#5":  ["!XXX|OXO", ""],
+    "G5":   ["!XXX|OOO", ""],
+    "G#5":  [" OOO|OOO", ""],
+    "A5":   ["!XXO|OOO", ""],
+    "A#5":  [" OOO|OOO", ""],
+    "B5":   ["!XOO|OOO", ""],
     // ------------------------
-    "C6": ["!OOO|OOO", ""],
+    "C6":   ["!OOO|OOO", ""],
     // @TODO: banana keys
 };
     
 function draw_clarinet_fingering(x,y,R, note) {
+    if (!clarinet_fingering[note]) {
+        console.error("Note not found:", note);
+        return 0;
+    }
+
     const [fingering, mod] = clarinet_fingering[note];
     const mark = fingering[0];
-    
+
     // Register keys (back)  
     draw_drop(x-2*R, y+R, R*0.3, R*1.2, mark =='!' || mark == "'");
     draw_circ(x-2*R, y+R + 2.12*R, R*0.3, mark =='!' || mark=='.');
@@ -71,7 +90,6 @@ function draw_clarinet_fingering(x,y,R, note) {
 
     // 1,2,3
     for (let o of range(3)) {
-        console.log(fingering[o+1], 'X', fingering[o+1] == 'X')
         draw_circ(x,y,R,fingering[o+1] == 'X');
 
         y += 2.5*R;

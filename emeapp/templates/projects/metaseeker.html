@@ -1,0 +1,67 @@
+<div id="metaseeker">
+    <h2 class="display-4">MetaSeeker
+
+        <img class="limg" title="Python" src="/img/logo/python.png" />
+        <img class="limg" title="R lang" src="/img/logo/R.png" />
+        <img class="limg" title="Javascript" src="/img/logo/javascript.png" />
+        <img class="limg" title="Flask" src="/img/logo/flask.png" />
+        <img class="limg" title="Eme" src="/img/logo/eme.png" />
+        <img class="limg" title="Vue" src="/img/logo/vue.png" />
+    </h2>
+    <p>MetaSeeker is a <a href="https://www.oxfordreference.com/view/10.1093/oi/authority.20110803095711989" target="_blank">derivative</a> <a href="https://en.wikipedia.org/wiki/Metabolomics" target="_blank">metabolome</a> database developed in coordination with Uppsala University's <a href="http://bioinf.icm.uu.se/" target="_blank">Komorowski Lab</a>. It's built upon the major chemical databases used for metabolomics by automatically mapping their records and allowing manual curation (re-mapping & editing entries) for authorized users.</p>
+
+    <p>MetaSeeker is a mixture of Single-page apps and old-school backend-rendered pages. Complex frontend interfaces rely on Vue.js SAP, while simple pages such as legal and manuals are rendered using Flask's built in Jinja2. Users are able to search metabolites through several web interfaces;</p>
+
+    <div class="row mb-4">
+        <div class="col">
+            {{ 'meta/0index.png'|gallery|safe }}
+        </div>
+        <div class="col">
+            {{ 'meta/2metapage.png'|gallery|safe }}
+        </div>
+    </div>
+
+    <h3>String Search</h3>
+    <p>Regular search is achieved using a custom search module built in <a href="https://oboforty.pythonanywhere.com/" target="_blank">Eme</a>, which allows text search for several metabopte attributes (e.g. chemical names, ascii structure, chemical formula, description).</p>
+
+    <h3>Molecular Search</h3>
+    <p>This is a method of search for several cheminformatics websites. Using <a href="https://jsme-editor.github.io/" target="_blank">JSME</a> - a Javascript port of JME, a popular chemichal editor - the user constructs the molecule that is in the question, which is then converted to InChI format using a Javascript port of the InChI C algorithm. This ascii string is then searched in the database. An alternative method for InChI-based search is creating an MDL file and issuing a custom similarity-search in the database. This latter method is not implemented yet, but is a planned feature.</p>
+
+    <div class="row mb-4">
+        <div class="col">
+            {{ 'meta/1search_text.png'|gallery|safe }}
+        </div>
+        <div class="col">
+            {{ 'meta/1search_mol.png'|gallery|safe }}
+        </div>
+    </div>
+
+    <h3>User Authentication</h3>
+    <p>Just like the bulk of my projects, MetaSeeker uses the <a href="#doors">Doors Authentication</a> system over OAuth2 bearer token and web authorization code grant type.</p>
+
+    <h3>Discovery Search</h3>
+    <p>Other than relying on the regular cached search, users can directly trigger the custom algorithm that used in constructing the derivative database. The `discovery` algorithm is responsible for mapping identifiers between the external database. When the user searches a term (regular search) that is not found in the cache, the discovery algorithm is triggered automatically ands its result, the universal metabolite record is then cached in the search engine.</p>
+
+    <h3>Building the database</h3>
+    <p>Several Eme tasks and commands are responsible for constructing the database in consecutive steps. The relevant attributes of external database records are stored individually and their foreign key mapping is stored in an additional table. A future planned feature is to assign a custom, universal metabolome identifier, so that it could be used as a single source of truth in metabolomics research.</p>
+
+    <div class="row mb-4">
+        <div class="col">
+            {{ 'meta/3chebi_data.png'|gallery|safe }}
+        </div>
+        <div class="col">
+            {{ 'meta/3_metabolites.png'|gallery|safe }}
+        </div>
+    </div>
+
+    <p>To read more on the underlying algorithm used for mapping and therefore constructing the database, read the publication, which is the precursor of this project and partially includes my Master thesis:</p>
+
+    <div class="m-3">
+        <a class="btn btn-link btn-lg" href="https://www.researchgate.net/publication/349802457_MetaFetcheR_An_R_package_for_complete_mapping_of_small_compound_data" target="_blank">MetatFetcher publication</a>
+
+        <a class="btn btn-link btn-lg" href="https://github.com/oboforty/metaindex" target="_blank">Database Github</a>
+        
+        <a class="btn btn-link btn-lg" href="https://github.com/oboforty/metafetcher" target="_blank">Thesis Github</a>
+        
+    </div>
+</div>

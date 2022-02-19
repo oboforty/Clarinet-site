@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% set active_page = "Welcome" %}
+
+{% block content %}
+  <div class="sticky-top float-right" style="width: 250px">
+    {% with %}
+        {% set menu = 'examples' %}
+
+        {% include 'menu.html' %}
+    {% endwith %}
+
+  </div>
+  
+  <div class="container">
+    <div data-spy="scroll" data-target="#navbar-scrollspy" data-offset="0">
+      <h4 id="spa">Single Page Apps</h4>
+
+      <p>These 3 pages are the same single-page app implemented in <strong class="text-success">Vue.js</strong>, <strong class="text-success">React.js</strong>, <strong class="text-success">Angular.js</strong>, respectively. They each implement CRUD operations on two entities and interact with the same Flask Api. All three apps come with a transpiled version using <strong class="text-success">webpack</strong>.</p>
+
+
+
+    </div>
+</div>
+{% endblock %}

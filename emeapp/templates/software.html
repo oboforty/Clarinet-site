@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% set active_page = "Welcome" %}
+
+{% block content %}
+  <div class="sticky-top float-right" style="width: 250px">
+    {% with %}
+        {% set menu = 'software' %}
+
+        {% include 'menu.html' %}
+    {% endwith %}
+
+  </div>
+
+
+  <div class="container">
+    <div data-spy="scroll" data-target="#navbar-scrollspy" data-offset="0">
+
+      {% include 'projects/metaseeker.html' %}
+
+      <hr class="my-5" />
+
+      {% include 'projects/doors.html' %}
+
+      <hr class="my-5" />
+
+      {% include 'projects/eme.html' %}
+
+      <hr class="my-5" />
+
+      <!-- {% include 'projects/lauren.html' %}
+
+      <hr class="my-5" /> -->
+
+      {% include 'projects/merlin2.html' %}
+  
+    </div>
+  </div>
+
+{% endblock %}

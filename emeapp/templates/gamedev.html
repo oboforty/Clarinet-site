@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% set active_page = "Welcome" %}
+
+{% block content %}
+  <div class="sticky-top float-right" style="width: 250px">
+    {% with %}
+        {% set menu = 'gamedev' %}
+
+        {% include 'menu.html' %}
+    {% endwith %}
+
+  </div>
+  
+  <div class="container">
+    hello
+  </div>
+{% endblock %}
