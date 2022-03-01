@@ -29,13 +29,13 @@ function draw_drop_left(x,y,w,h,fill) {
 
 // offset compared to base E
 const clarinet_fingering = {
-    "E3":   [" OOO|OOO", ""],
-    "F3":   [" OOO|OOO", ""],
-    "F#3":  [" OOO|OOO", ""],
+    "E3":   [".XXX|XXX", "⡀"],
+    "F3":   [".XXX|XXX", "⢀"],
+    "F#3":  [".XXX|XXX", "⠁"],
     "G3":   [".XXX|XXX", ""],
-    "G#3":  [" OOO|OOO", ""],
+    "G#3":  [".XXX|XXX", "⠈"],
     "A3":   [".XXX|XXO", ""],
-    "A#3":  [" OOO|OOO", ""],
+    "A#3":  [".XXX|XOO", ""],
     "B3":   [".XXX|OXO", ""],
     // ------------------------
     "C4":   [".XXX|OOO", ""],
@@ -70,7 +70,7 @@ const clarinet_fingering = {
     
 function draw_clarinet_fingering(x,y,R, note) {
     if (!clarinet_fingering[note]) {
-        console.error("Note not found:", note);
+        throw new Exception("Note not found: " + note);
         return 0;
     }
 

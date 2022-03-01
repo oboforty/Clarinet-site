@@ -1,5 +1,7 @@
+import uuid
+
 from eme.data_access import get_repo
-from flask import render_template, request, Response
+from flask import render_template, request, Response, redirect, url_for
 
 from core.dal import Song, SongRepository
 
@@ -8,6 +10,10 @@ class SongsController:
     def __init__(self, server):
         self.group = "Songs"
         self.repo: SongRepository = get_repo(Song)
+
+        server.preset_endpoints({
+            'GET /songs/<song_id>': 'Songs:get_view'
+        })
 
     def index(self):
         songs = self.repo.list_all()
@@ -26,10 +32,23 @@ class SongsController:
         return render_template('/songs/create.html')
 
     def post(self):
-        pass
+        song_data = request.form.copy()
+        song = Song(**song_data)
+        song.song_id = uuid.uuid4()
+
+        self.repo.create(song)
+
+        return redirect(url_for("Songs:get_index"))
 
     def put(self, song_id):
-        pass
+        song = self.repo.get(song_id)
+
+        song_data = request.form.copy()
+        song.set(**song_data)
+
+        self.repo.save()
+
+        return redirect(url_for("Songs:get_index"))
 
     def delete(self, song_id):
         pass

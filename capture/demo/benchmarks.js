@@ -359,7 +359,8 @@ function testWASMmic (size, freqData) {
     // no cutoff -> sample whole array
     const size = freqData.length;
     const sampFreq = 44100;
-    const freqStep = 23.5//(sampFreq/2)/size;
+    const freqStep = (sampFreq/2)/size;
+    console.log("step", freqStep)
 
     if (cutoff == null)
       cutoff = freqData.length;
@@ -369,7 +370,9 @@ function testWASMmic (size, freqData) {
     for (var i = 0; i < cutoff; i++)
       //freqs.push({freq: Math.round((i+1.5)*freqStep), val: freqData[i], idx: i})
       //freqs.push({freq: Math.round(20 + (i+0.5)*freqStep), val: freqData[i], idx: i})
-      freqs.push({freq: Math.round(i*freqStep), val: freqData[i], idx: i})
+      //freqs.push({freq: Math.round(i*freqStep), val: freqData[i], idx: i})
+      freqs.push({freq: Math.round((i*freqStep+(i+1)*freqStep)/2), val: freqData[i], idx: i})
+      
 
     // filter max
     freqs.sort((a,b)=>b.val-a.val);

@@ -16,3 +16,7 @@ h3 {
     max-width: 35px;
     max-height: 35px;
 }
+
+.song-notes {
+    height: 500px !important;
+}

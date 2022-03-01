@@ -4,15 +4,14 @@ const decibelsToGain = decibels => Math.pow(10, (decibels / 20));
 
 
 const sineWaves =[
-  
-  {"freq":341,"val":49.066227,"idx":15},
-  //{"freq":376,"val":14.056380271911621,"idx":16},
-
-  // {"freq":1727.5,"val":15.03500,"idx":74},
-
-  {"freq":1034,"val":14.728128433227539,"idx":44},
-
-  {"freq":693.5,"val":12.817661,"idx":29},
+  {"freq":635,"val":82.52731323242188,"idx":29},
+  {"freq":656,"val":74.86335754394531,"idx":30},
+  {"freq":613,"val":13.083337783813477,"idx":28},
+  {"freq":678,"val":9.00784969329834,"idx":31},
+  // {"freq":1280,"val":2.0287652015686035,"idx":59},
+  // {"freq":1258,"val":1.1513028144836426,"idx":58},
+  // {"freq":527,"val":1.1031060218811035,"idx":24},
+  // {"freq":549,"val":0.8388165831565857,"idx":25}
 ]
 
 const audioCtx = new(window.AudioContext || window.webkitAudioContext)();

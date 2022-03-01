@@ -15,12 +15,6 @@ class PFWebapp(WebsiteApp):
 
         self.load_controllers(load_handlers(self, 'Api', module_path='api', path=join(script_path, 'api')), conf=conf.get('routing', {}))
 
-        @self.template_filter()
-        def gallery(src):
-            """Shorthand for gallery images."""
-
-            return f'<a href="/img/{src}" target="_blank"><img src="/img/{src}" class="img-fluid img-thumbnail" /></a>'
-
 
 if __name__ == "__main__":
     g = PFWebapp()

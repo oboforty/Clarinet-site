@@ -1,7 +1,7 @@
 import uuid
 
 from eme.data_access import GUID, JSON_GEN
-from sqlalchemy import Column, String, Integer, Text, SmallInteger
+from sqlalchemy import Column, String, Integer, Text, SmallInteger, Boolean
 from core.dal.base.sqlite import EntityBase
 
 
@@ -18,10 +18,14 @@ class Song(EntityBase):
     strength = Column(SmallInteger())
     tempo = Column(SmallInteger())
 
-    notes = Column(JSON_GEN())
+    notes = Column(Text())
 
     def __init__(self, **kwargs):
         self.song_id = kwargs.get('song_id')
+
+        self.set(**kwargs)
+
+    def set(self, **kwargs):
         self.name = kwargs.get('name')
         self.artist = kwargs.get('artist')
         self.about = kwargs.get('about')

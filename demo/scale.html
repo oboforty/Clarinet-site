@@ -5,8 +5,12 @@
 </head>
 <body>
 <select id="scale">
+  <option value="R_lower">Low notes</option>
+  <option value="R_mid">Mid notes</option>
+  <option value="R_higher">Higher notes</option>
+
   <option value="C_major">C Major</option>
-  <option value="G_major" selected>G Major</option>
+  <option value="G_major">G Major</option>
 </select>
 <br/>
 
@@ -30,28 +34,37 @@ ctx.font = (RAD*1.5)+"px Arial";
 function draw(R, scale, is) {
   ctx.clearRect(0,0,width,height);
 
+  // fetch and concat scales, strip redundant notes
   let _notes = [];
   for (let oct of is)
     _notes = _notes.concat(fetch_scale(scale, oct));
+  _notes = [...new Set(_notes)];
 
+  // draw each note on selected scale
+  let ioff = 0;
   for(let [i, note] of enumerate(_notes)) {
-    let x = 3.0 * R + i * 6*R;
+    let x = 3.0 * R + (i-ioff) * 6*R;
     let y = 0.75 * R;
 
     // fingering
-    y = draw_clarinet_fingering(x,y,R, note);
+    try {
+      y = draw_clarinet_fingering(x,y,R, note);
+    } catch(e) {
+      // lower register below E3 not found on clarinet
+      ioff++;
+      continue;
+    }
 
-    y+= 12;
     // note
     draw_note(x, y, 4.5*R, 3*R, note, true);
   }
 
 }
 
-draw(RAD, $("#scale").value, [3,4]);
+draw(RAD, $("#scale").value, [2,3,4]);
 
 $("#scale").onchange = function() {
-  draw(RAD, this.value, [3,4]);
+  draw(RAD, this.value, [2,3,4]);
 }
 
 // const _notes = [

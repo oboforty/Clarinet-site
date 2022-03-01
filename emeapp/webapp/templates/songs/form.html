@@ -1,53 +1,59 @@
 
 <form accept-charset="UTF-8" role="form" action="{{ form_url }}" method="POST">
+  <div class="row">
+    <div class="col-2">
 
-  <fieldset>
-    <input type="hidden" name="song_id" value="{{ song.song_id if song else '' }}" />
-  </fieldset>
 
-  <fieldset>
-    <div class="form-group">
-      <label for="name">Song Title:</label>
-      <input class="form-control" placeholder="name" name="name" id="name" value="{{ song.name if song else '' }}" type="text">
-    </div>
+      <fieldset>
+        <input type="hidden" name="song_id" value="{{ song.song_id if song else '' }}" />
+      </fieldset>
 
-    <div class="form-group">
-      <label for="artist">Artist:</label>
-      <input class="form-control" placeholder="artist" name="artist" id="artist" value="{{ song.artist if song else '' }}" type="text">
-    </div>
-    <div class="form-group">
-      <label for="instrument">Instrument:</label>
-      <select class="form-control" name="instrument" id="instrument">
-        <option value="clarinet_bb">Bb Clarinet</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="tempo">Recommended tempo:</label>
-      <input class="form-control" placeholder="e.g. 120" name="tempo" id="tempo" value="{{ song.tempo if song else '' }}" type="text">
-    </div>
-    <div class="form-group">
-      <label for="skey">Key:</label>
-      <input class="form-control" placeholder="C minor" name="skey" id="skey" value="{{ song.skey if song else '' }}" type="text">
-    </div>
-    <div class="form-group">
-      <label for="strength">Hardness:</label>
-      <select class="form-control" name="instrument" id="strength">
-        <option value="1" {% if song and song.strength == 1 %}selected{% endif %}>Easy</option>
-        <option value="2" {% if song and song.strength == 1 %}selected{% endif %}>Medium</option>
-        <option value="3" {% if song and song.strength == 1 %}selected{% endif %}>Hard</option>
-        <option value="4" {% if song and song.strength == 1 %}selected{% endif %}>Expert</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="about">Description:</label>
-      <textarea class="form-control" placeholder="Description about the song" id="about" name="about">{{ song.about if song else '' }}</textarea>
-    </div>
-    <div class="form-group">
-      <label for="notes">Sheet:</label>
-      <textarea class="form-control" placeholder="Description about the song" id="notes" name="notes">{{ song.notes if song else '' }}</textarea>
-    </div>
+      <fieldset>
+        <div class="form-group">
+          <input class="form-control" placeholder="Song Title" name="name" id="name" value="{{ song.name if song else '' }}" type="text">
+        </div>
+        <div class="form-group">
+          <label for="artist">By</label>
+          <input class="form-control" placeholder="artist" name="artist" id="artist" value="{{ song.artist if song else '' }}" type="text">
+        </div>
+        <div class="form-group">
+          <label for="instrument">Instrument:</label>
+          <select class="form-control" name="instrument" id="instrument">
+            <option value="clarinet_bb">Bb Clarinet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="tempo">Recommended tempo:</label>
+          <input class="form-control" placeholder="e.g. 120" name="tempo" id="tempo" value="{{ song.tempo if song else '' }}" type="text">
+        </div>
+        <div class="form-group">
+          <label for="skey">Key:</label>
+          <input class="form-control" placeholder="C minor" name="skey" id="skey" value="{{ song.skey if song else '' }}" type="text">
+        </div>
+        <div class="form-group">
+          <label for="strength">Hardness:</label>
+          <select class="form-control" name="instrument" id="strength">
+            <option value="1" {% if song and song.strength == 1 %}selected{% endif %}>Easy</option>
+            <option value="2" {% if song and song.strength == 1 %}selected{% endif %}>Medium</option>
+            <option value="3" {% if song and song.strength == 1 %}selected{% endif %}>Hard</option>
+            <option value="4" {% if song and song.strength == 1 %}selected{% endif %}>Expert</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="about">Description:</label>
+          <textarea class="form-control" placeholder="Description about the song" id="about" name="about">{{ song.about if song else '' }}</textarea>
+        </div>
+      </fieldset>
 
-  </fieldset>
+      <button type="submit" class="btn btn-lg btn-danger btn-block">{{ form_action }}</button>
 
-  <button type="submit" class="btn btn-lg btn-danger btn-block">{{ form_action }}</button>
+    </div>
+    <div class="col-10">
+      <fieldset>
+        <textarea class="form-control song-notes" placeholder="Description about the song" id="notes" name="notes">{{ song.notes if song else '' }}</textarea>
+
+      </fieldset>
+    </div>
+  </div>
+
 </form>

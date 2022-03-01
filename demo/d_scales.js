@@ -10,30 +10,52 @@ const scale_meta = {
 };
 const notes = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 
+const lists = {
+    'lower': 3,
+    'mid': 4,
+    'high': 5,
+}
+
 
 function fetch_scale(scale, oct){
-    let [first_note, _ky] = scale.split('_');
-    const steps = scale_meta[_ky];
     const _scale = [];
 
-    _scale.push(first_note+oct);
-    let i = notes.indexOf(first_note);
+    if (scale[0] == 'R') {
+        // register list
+        // let first_note = 'C';
+        let sc = lists[scale.split('_')[1]];
+        // let i = notes.indexOf(first_note);
 
-    for(let s of range(len(steps))) {
-        const step = steps[s];
-        const n = len(notes);
-
-        i = i+(step=='W'?2:1);
-
-        // increment octave if one cycle has passed
-        if (i%n==0 && i != 0)
-            oct++;
-
-        // cyclic iteration
-        i = (i % n + n) % n;
-
-        _scale.push(notes[i]+oct);
+        for(let note of notes) {
+            _scale.push(note+sc);
+            // i++;
+        }
+    } else {
+        // scale 
+        let [first_note, _ky] = scale.split('_');
+        const steps = scale_meta[_ky];
+    
+        _scale.push(first_note+oct);
+        let i = notes.indexOf(first_note);
+    
+        for(let s of range(len(steps))) {
+            const step = steps[s];
+            const n = len(notes);
+    
+            i = i+(step=='W'?2:1);
+    
+            // increment octave if one cycle has passed
+            if (i%n==0 && i != 0)
+                oct++;
+    
+            // cyclic iteration
+            i = (i % n + n) % n;
+    
+            _scale.push(notes[i]+oct);
+        }
     }
+
+
 
     return _scale;
 }

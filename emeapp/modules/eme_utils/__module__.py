@@ -6,6 +6,7 @@ from eme.entities import load_handlers, load_settings
 from .services.error_reporting import init_ws
 from .services.jinja_helpers import init_jinja
 from .services.mail import init_mail
+from .services.teardown import init_teardown
 
 
 module_path = os.path.dirname(os.path.realpath(__file__))
@@ -14,8 +15,8 @@ sys.path.append(module_path)
 
 def init_webapp(app, webconf):
     init_jinja(app, webconf)
-
     init_mail(app, conf['mail'])
+    init_teardown(app)
 
 
 def init_cliapp(app, conf):
