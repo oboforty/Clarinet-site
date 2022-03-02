@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Clarinet notes</title>
+</head>
+<body>
+  <select id="scale">
+    <option value="C_major">C Major</option>
+    <option value="G_major">G Major</option>
+    <option value="E_major">E Major</option>
+  </select>
+  <br/>
+  
+  <textarea id="gw2tabs" placeholder="gw2 string">878 878 878 (2244 312) 75 (312 5143322)
+878 54 878 54 878 (2244 312) 75 (312 514 32 467)
+878 878 8778 5 8 7 8 1 3 5 8 (1 3 5 8)</textarea>
+  <br/>
+  <button onclick="money_upfront()">Calculate</button>
+  <br/>
+  <br/>
+  
+  <textarea id="output" placeholder="Notes be here"></textarea>
+
+<script type="text/javascript" src="../vendor/ra.min.js"></script>
+<script type="text/javascript" src="parser/d_scales.js"></script>
+<script type="text/javascript">
+
+
+function money_upfront() {
+  const scale_name = $("#scale").value;
+  const tabs = $("#gw2tabs").value;
+  
+  const octaves = [
+      fetch_scale(scale_name, [3]),
+      fetch_scale(scale_name, [4]),
+      fetch_scale(scale_name, [5])
+  ];
+
+  let octave = 1;
+  const output = [];
+
+  for(let i = 0; i <= len(tabs); i++) {
+    if (tabs[i] == " ") output.push(" - ");
+    else if (tabs[i] == "(") octave++; // octave up
+    else if (tabs[i] == ")") octave--;
+    else if (tabs[i] == "[") octave--; // octave down
+    else if (tabs[i] == "]") octave++;
+    else {
+      const scale = octaves[octave];
+      const n = parseInt(tabs[i]);
+      const note = scale[n-1];
+
+      output.push(note);
+    }
+  }
+
+  $("#output").value = output.join(" ");
+}
+
+</script>
+</body>
+</html>

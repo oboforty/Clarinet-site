@@ -22,7 +22,10 @@ class SongsController:
 
     def get_view(self, song_id):
         song = self.repo.get(song_id)
-        return render_template('/songs/view.html', song=song)
+
+        notes = song.notes.split()
+
+        return render_template('/songs/view.html', song=song, notes=notes)
 
     def get_edit(self, song_id):
         song = self.repo.get(song_id)
@@ -40,7 +43,7 @@ class SongsController:
 
         return redirect(url_for("Songs:get_index"))
 
-    def put(self, song_id):
+    def post_edit(self, song_id):
         song = self.repo.get(song_id)
 
         song_data = request.form.copy()

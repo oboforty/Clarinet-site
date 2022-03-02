@@ -37,15 +37,18 @@ function fetch_scale(scale, oct){
     
         _scale.push(first_note+oct);
         let i = notes.indexOf(first_note);
+        let prev_i = i-1;
     
         for(let s of range(len(steps))) {
             const step = steps[s];
             const n = len(notes);
     
             i = i+(step=='W'?2:1);
-    
+
             // increment octave if one cycle has passed
-            if (i%n==0 && i != 0)
+            const octave_step_up = i != 0 && (i%n==0 || i%n < prev_i);
+            //console.log(i, i%n, octave_step_up);
+            if (octave_step_up)
                 oct++;
     
             // cyclic iteration

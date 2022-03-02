@@ -1,5 +1,13 @@
 {% extends "layout.html" %}
 
+{% block scripts %}
+<script type="text/javascript" src="/js/music/parser/d_scales.js"></script>
+
+<script type="text/javascript" src="/js/music/render/notes.js"></script>
+<script type="text/javascript" src="/js/music/render/{{ song.instrument }}/fingering.js"></script>
+<script type="text/javascript" src="/js/music/render/{{ song.instrument }}/sheet.js"></script>
+{% endblock %}
+
 
 {% block content %}
 <div class="container-fluid">
@@ -11,8 +19,17 @@
     </div>
 
 </div>
-{% endblock %}
 
-{% block scripts %}
+<script type="text/javascript">
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const width = canvas.width;
+const height = canvas.height;
+const RAD = 15;
+
+
+render_song(ctx, RAD, {{ notes|tojson|safe }});
+</script>
+
 {% endblock %}
 

@@ -10,7 +10,7 @@
       </div>
       <div class="card-body">
         {% set form_action = 'edit' %}
-        {% set form_url = url_for('Songs:put', song_id=song.song_id) %}
+        {% set form_url = url_for('Songs:post_edit', song_id=song.song_id) %}
 
         {% include 'songs/form.html'%}
       </div>

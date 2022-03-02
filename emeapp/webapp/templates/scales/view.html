@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block scripts %}
+<script type="text/javascript" src="/js/music/parser/d_scales.js"></script>
+
+<script type="text/javascript" src="/js/music/render/notes.js"></script>
+
+{% if instrument %}
+    <script type="text/javascript" src="/js/music/render/{{ instrument }}/fingering.js"></script>
+    <script type="text/javascript" src="/js/music/render/{{ instrument }}/sheet.js"></script>
+{% else %}
+    <script type="text/javascript" src="/js/music/render/scales.js"></script>
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="">
+        <div class="d-flex">
+            <div>
+                <select id="scale">
+                  <option value="C_major">C Major</option>
+                  <option value="G_major">G Major</option>
+                  <option value="E_major">E Major</option>
+                </select>
+            </div>
+            <div>
+                <select id="octave">
+                  <option value="3">Lower octave</option>
+                  <option value="4" selected>Middle octave</option>
+                  <option value="5">High octave</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div>
+        <canvas id="canvas" width="1800" height="450"></canvas>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const width = canvas.width;
+const height = canvas.height;
+const RAD = 15;
+
+let scale = $("#scale").value;
+let octave = $("#octave").value;
+
+render_scale(ctx, RAD, scale, octave);
+
+$("#scale").onchange = function() {
+    scale = $("#scale").value;
+
+    render_scale(ctx, RAD, scale, octave);
+}
+
+$("#octave").onchange = function() {
+    octave = $("#octave").value;
+
+    render_scale(ctx, RAD, scale, octave);
+}
+</script>
+
+{% endblock %}
+

@@ -39,35 +39,48 @@ const clarinet_fingering = {
     "B3":   [".XXX|OXO", ""],
     // ------------------------
     "C4":   [".XXX|OOO", ""],
-    "C#4":  [" OOO|OOO", ""],
+    "C#4":  [" OOO|OOO", "@TODO"], // @TODO
     "D4":   [".XXO|OOO", ""],
-    "D#4":  [" OOO|OOO", ""],
+    "D#4":  [" OOO|OOO", "@TODO"], // @TODO
     "E4":   [".XOO|OOO", ""],
-    "F4":   [".OOO|OOO", ""],
+    "F4":   [".OOO|OOO", "@TODO"], // @TODO
     "F#4":  [" XOO|OOO", ""],
     "G4":   [" OOO|OOO", ""],
-    "G#4":  [" OOO|OOO", ""],
+    "G#4":  [" OOO|OOO", "@TODO"], // @TODO
     "A4":   [" OOO|OOO", "A"],
-    "A#4":  [" OOO|OOO", ""],
+    "A#4":  [" OOO|OOO", "@TODO"], // @TODO
     "B4":   ["!XXX|XXX", "⡀"],
     // ------------------------
     "C5":   ["!XXX|XXX", "⢀"],
-    "C#5":  [" OOO|OOO", ""],
+    "C#5":  ["!XXX|XXX", "⠁"],
     "D5":   ["!XXX|XXX", ""],
-    "D#5":  [" OOO|OOO", ""],
+    "D#5":  ["!XXX|XXX", "⠈"],
     "E5":   ["!XXX|XXO", ""],
     "F5":   ["!XXX|XOO", ""],
     "F#5":  ["!XXX|OXO", ""],
     "G5":   ["!XXX|OOO", ""],
-    "G#5":  [" OOO|OOO", ""],
+    "G#5":  [" OOO|OOO", "@TODO"], // @TODO
     "A5":   ["!XXO|OOO", ""],
-    "A#5":  [" OOO|OOO", ""],
+    "A#5":  [" OOO|OOO", "@TODO"], // @TODO
     "B5":   ["!XOO|OOO", ""],
     // ------------------------
-    "C6":   ["!OOO|OOO", ""],
-    // @TODO: banana keys
+    "C6":   [" OOO|OOO", "@TODO"], // @TODO
+    "C#6":   [" OOO|OOO", "@TODO"], // @TODO
+    "D6":   [" OOO|OOO", "@TODO"], // @TODO
+    "D#6":   [" OOO|OOO", "@TODO"], // @TODO
+    "E6":   [" OOO|OOO", "@TODO"], // @TODO
+    "F6":   [" OOO|OOO", "@TODO"], // @TODO
+    "F#6":   [" OOO|OOO", "@TODO"], // @TODO
+    "G6":   [" OOO|OOO", "@TODO"], // @TODO
+    "G#6":   [" OOO|OOO", "@TODO"], // @TODO
+    "A6":   [" OOO|OOO", "@TODO"], // @TODO
+    "A#6":   [" OOO|OOO", "@TODO"], // @TODO
+    "B6":   [" OOO|OOO", "@TODO"], // @TODO
+    // ------------------------
+    "C7":   [" OOO|OOO", "@TODO"], // @TODO
 };
-    
+    // @TODO: banana keys
+
 function draw_clarinet_fingering(x,y,R, note) {
     if (!clarinet_fingering[note]) {
         throw new Exception("Note not found: " + note);
@@ -76,6 +89,14 @@ function draw_clarinet_fingering(x,y,R, note) {
 
     const [fingering, mod] = clarinet_fingering[note];
     const mark = fingering[0];
+
+    if (mod == "@TODO") {
+        ctx.strokeStyle = "red";
+        ctx.fillStyle = "red";
+    } else {
+        ctx.strokeStyle = "black";
+        ctx.fillStyle = "black";
+    }
 
     // Register keys (back)  
     draw_drop(x-2*R, y+R, R*0.3, R*1.2, mark =='!' || mark == "'");
