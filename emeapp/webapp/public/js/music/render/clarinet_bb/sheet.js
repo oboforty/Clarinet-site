@@ -1,12 +1,22 @@
 
 
-function render_song(ctx, R, notes) {
+function render_song(ctx, R, notes, song) {
     ctx.font = (RAD*1.5)+"px Arial";
 
     // @TODO: @TEMPORAL: strip '-'
     notes = notes.filter(f=>f!='-'&&!f.includes('-'));
 
-    draw(ctx, R, notes);
+    // calc key & mark out-of-key notes
+  
+
+    // calc pagination
+
+    // calc tempo -> animation speed
+
+    ranimate((t, dt, telapsed)=>{
+
+      draw(ctx, R, notes);
+    });
 }
 
 

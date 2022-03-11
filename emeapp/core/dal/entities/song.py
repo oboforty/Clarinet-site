@@ -34,3 +34,16 @@ class Song(EntityBase):
         self.strength = kwargs.get('strength')
         self.tempo = kwargs.get('tempo')
         self.notes = kwargs.get('notes')
+
+    @property
+    def view():
+        return {
+            'song_id': self.song_id,
+            'name': self.name,
+            'artist': self.artist,
+            'about': self.about,
+            'instrument': self.instrument,
+            'skey': self.skey,
+            'strength': self.strength,
+            'tempo': self.tempo
+        }

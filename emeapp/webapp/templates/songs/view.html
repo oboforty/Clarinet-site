@@ -28,7 +28,7 @@ const height = canvas.height;
 const RAD = 15;
 
 
-render_song(ctx, RAD, {{ notes|tojson|safe }});
+render_song(ctx, RAD, {{ notes|tojson|safe }}, {{ song.view|tojson|safe }});
 </script>
 
 {% endblock %}
