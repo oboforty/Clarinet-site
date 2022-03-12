@@ -9,15 +9,17 @@
 {% endblock %}
 
 
-{% block content %}
+{% block metacontent %}
 <div class="container-fluid">
-    <div class="">
-        <h2>{{ song.name }} <span class="badge bg-info">by {{ song.artist }}</span></h2>
-    </div>
-    <div>
-        <canvas id="canvas" width="1800" height="450"></canvas>
-    </div>
+    <div class="d-flex">
+        <div class="p-2">
+          <h2>{{ song.name }} <br/><span class="badge bg-info">by {{ song.artist }}</span></h2>
 
+        </div>
+        <div style="min-width: 850px; min-height: 500px;">
+            <canvas id="canvas" width="800" height="600" style="border: solid 1px grey"></canvas>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">

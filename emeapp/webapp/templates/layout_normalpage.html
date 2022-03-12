@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block metacontent %}
+  <nav class="navbar navbar-expand-md border border-bottom border-top-0 border-dark">
+<!--    <a href="/">-->
+<!--      <img src="/img/logo.png" class="brand-logo"/>-->
+<!--    </a>-->
+    <span class="brand">ClarinetBuddy</span>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+      <ul class="navbar-nav">
+        {% for name, href in navigation_bar %}
+        <li class="nav-item {% if name == active_page %}active{% endif %}">
+          <a href="{{ href }}" class="nav-link">{{ name }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
+
+ {% block content %}{% endblock %}
+{% endblock %}

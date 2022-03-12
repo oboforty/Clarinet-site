@@ -17,6 +17,8 @@ class Song(EntityBase):
     skey = Column(String(20))
     strength = Column(SmallInteger())
     tempo = Column(SmallInteger())
+    # beats_per_measure = Column(SmallInteger())
+    # beats_type = Column(SmallInteger())
 
     notes = Column(Text())
 
@@ -33,10 +35,12 @@ class Song(EntityBase):
         self.skey = kwargs.get('skey')
         self.strength = kwargs.get('strength')
         self.tempo = kwargs.get('tempo')
+        self.beats_per_measure = kwargs.get('beats_per_measure')
+        self.beats_type = kwargs.get('beats_type')
         self.notes = kwargs.get('notes')
 
     @property
-    def view():
+    def view(self):
         return {
             'song_id': self.song_id,
             'name': self.name,
@@ -45,5 +49,11 @@ class Song(EntityBase):
             'instrument': self.instrument,
             'skey': self.skey,
             'strength': self.strength,
-            'tempo': self.tempo
+            'tempo': self.tempo,
+            # 'beats_per_measure': self.beats_per_measure,
+            # 'beats_type': self.beats_type,
         }
+
+    # @property
+    # def time_signature(self):
+    #     return (self.beats_per_measure, self.beats_type)

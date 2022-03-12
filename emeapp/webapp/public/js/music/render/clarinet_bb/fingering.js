@@ -90,14 +90,6 @@ function draw_clarinet_fingering(x,y,R, note) {
     const [fingering, mod] = clarinet_fingering[note];
     const mark = fingering[0];
 
-    if (mod == "@TODO") {
-        ctx.strokeStyle = "red";
-        ctx.fillStyle = "red";
-    } else {
-        ctx.strokeStyle = "black";
-        ctx.fillStyle = "black";
-    }
-
     // Register keys (back)  
     draw_drop(x-2*R, y+R, R*0.3, R*1.2, mark =='!' || mark == "'");
     draw_circ(x-2*R, y+R + 2.12*R, R*0.3, mark =='!' || mark=='.');
@@ -116,7 +108,7 @@ function draw_clarinet_fingering(x,y,R, note) {
         y += 2.5*R;
     }
 
-    y-= 0.75*R;
+    y-= 0.75 * R;
 
     // middle line
     ctx.beginPath();
@@ -124,13 +116,13 @@ function draw_clarinet_fingering(x,y,R, note) {
     ctx.lineTo(x + 0.75*R, y);
     ctx.stroke();
 
-    y += 1.75*R;
+    y += 1.75 * R;
 
     // 1,2,3
     for (let o of range(3)) {
         draw_circ(x,y,R,fingering[o+5] == 'X');
 
-        y += 2.5*R;
+        y += 2.5 * R;
     }
 
     // bridge keys / keys
@@ -144,4 +136,9 @@ function draw_clarinet_fingering(x,y,R, note) {
     y+= 22;
 
     return y;
+}
+
+function get_clarinet_height(R) {
+    //
+    return Math.floor(20.45*R + 22);
 }

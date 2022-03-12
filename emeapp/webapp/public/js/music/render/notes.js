@@ -1,25 +1,11 @@
 
-function draw_note(x,y,w,h,note, show_text) {
+function draw_note(ctx, x,y,h,note,text_color) {
   y+=20;
   // full note scale:
   var kR = h/10;
   var startY = y+5*kR;
 
   let mod = ['#','b'].includes(note[1]) ? note[1] : null;
-
-  for(var i = 0; i < 10; i++) {
-      // note Y:
-      var ny = startY-i*kR;
-
-      if (i%2==0) {
-          ctx.beginPath();
-          ctx.moveTo(x-w/2, ny);
-          ctx.lineTo(x+w/2, ny);
-          ctx.lineWidth = 1;
-          ctx.stroke();
-          ctx.closePath();
-      }
-  }
 
   // calculate offset on note sheet
   var octaveidx = (parseInt(note[len(note)-1])) - 4;
@@ -76,10 +62,36 @@ function draw_note(x,y,w,h,note, show_text) {
     }
   }
 
-  if (show_text) {
-    ctx.fillStyle = "#404040";
+  if (text_color) {
+    ctx.fillStyle = text_color;
     ctx.fillText(note, x-30, y + 24 + h);
-    ctx.fillStyle = "black";  
   }
 }
-  
+
+function draw_note_lines(ctx, x0,x1,y,h) {
+  // full note scale:
+  y+=20;
+
+  var kR = h/10;
+  var startY = y+5*kR;
+
+  for(var i = 0; i < 10; i++) {
+      // note Y:
+      var ny = startY-i*kR;
+
+      if (i%2==0) {
+          ctx.beginPath();
+          ctx.moveTo(x0, ny);
+          ctx.lineTo(x1, ny);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.closePath();
+      }
+  }
+}
+//
+//function get_note_height(R, h) {
+//  var kR = h/10;
+//
+//  return 20 + 5*kR;
+//}
