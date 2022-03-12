@@ -4,7 +4,7 @@
 {% block content %}
   <div class="container">
     <h1>Songs list</h1>
-
+    
     <div class="row">
       <div class="col">
         <table class="table table-sm table-hover">
@@ -21,22 +21,14 @@
             {% for song in songs %}
             <tr>
               <td>
-                <a class="btn btn-sm btn-link" data-toggle="collapse" href="#collapseToken{{song.song_id}}" role="button">
+                <a class="btn btn-sm btn-link" href="{{ url_for('Songs:get_view', song_id=song.song_id) }}" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="By {{ song.artist }}">
                   <b>{{ song.name }}</b>
                 </a>
-                <div class="collapse" id="collapseToken{{song.song_id}}">
-                  <div class="card card-body">
-                    <span>By {{ song.artist }}</span>
-                  </div>
-                </div>
               </td>
               <td>{{ song.strength }}</td>
               <td>{{ song.skey }}</td>
               <td>{{ song.instrument }}
               <td>
-
-                <a href="{{ url_for('Songs:get_view', song_id=song.song_id) }}" title="{{ song.name }}">View Song</a>
-
                 <a href="{{ url_for('Songs:get_edit', song_id=song.song_id) }}" title="{{ song.name }}">Edit</a>
                 <a href="{{ url_for('Songs:delete', song_id=song.song_id) }}" title="{{ song.name }}">Delete</a>
               </td>
@@ -50,4 +42,15 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+window.onload = () => {
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  });
+}
+</script>
 {% endblock %}

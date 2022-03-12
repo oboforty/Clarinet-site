@@ -6,6 +6,7 @@
 <script type="text/javascript" src="/js/music/render/notes.js"></script>
 <script type="text/javascript" src="/js/music/render/{{ song.instrument }}/fingering.js"></script>
 <script type="text/javascript" src="/js/music/render/{{ song.instrument }}/sheet.js"></script>
+<script type="text/javascript" src="/js/music/gui.js"></script>
 {% endblock %}
 
 
@@ -13,8 +14,15 @@
 <div class="container-fluid">
     <div class="d-flex">
         <div class="p-2">
-          <h2>{{ song.name }} <br/><span class="badge bg-info">by {{ song.artist }}</span></h2>
+          <h2 class="mb-0">{{ song.name }}</h2>
+          <div class="mb-3"><span class="badge bg-info">by {{ song.artist }}</span></div>
+          <hr/>
 
+          <div id="player">
+            <button id="play" class="btn btn-light border border-secondary"><span class="ra ra-lg ra-play-button"></span></button>
+            <button id="pause" class="btn btn-light border border-secondary"><span class="ra ra-lg ra-pause-button"></span></button>
+            <button id="stop" class="btn btn-light border border-secondary"><span class="ra ra-lg ra-stop-button"></span></button>
+          </div>
         </div>
         <div style="min-width: 850px; min-height: 500px;">
             <canvas id="canvas" width="800" height="600" style="border: solid 1px grey"></canvas>
@@ -29,8 +37,9 @@ const width = canvas.width;
 const height = canvas.height;
 const RAD = 15;
 
-
 render_song(ctx, RAD, {{ notes|tojson|safe }}, {{ song.view|tojson|safe }});
+
+init_gui();
 </script>
 
 {% endblock %}

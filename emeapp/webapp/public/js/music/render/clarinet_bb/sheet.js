@@ -1,5 +1,5 @@
 
-let ropts = {
+const ropts = {
     render_note_text: false,
     lines_per_page: 2,
     notes_per_line: 8,
@@ -9,59 +9,98 @@ let ropts = {
 
     get notes_per_page() {
         return this.lines_per_page * this.notes_per_line;
-    }
+    },
+
+    get note_interval() {
+      return (60*1000) / this.bpm;
+    },
 };
 
-function render_song(ctx, R, notes, song) {
+const player_ctx = {
+  is_playing: false,
+
+  // cyclic timers for note > line > page > song
+  time_next_note: 0,
+  i_note: 0,
+  i_line: 0,
+  i_page: 0,
+
+  // notes on current page being rendered:
+  on_notes: [],
+  // all notes on song:
+  notes: [],
+
+  on_play: ()=>{},
+
+  start() {
+    if (!this.is_playing) {
+      this.is_playing = true;
+      this.on_play();
+
+      ranimate(animate);
+    }
+
+    return this.is_playing;
+  },
+
+  pause() {
+    this.is_playing = false;
+    this.time_next_note = 1;
+  },
+
+  stop() {
+    this.is_playing = false;
+    this.time_next_note = 1;
+    this.i_note = 0;
+    this.i_line = 0;
+    this.i_page = 0;
+    this.on_notes = [];
+  }
+};
+
+function animate(t, dt, telapsed) {
+  // time interval between notes played
+  player_ctx.time_next_note += dt;
+  if (player_ctx.time_next_note > ropts.note_interval) {
+    // increment line?
+    if (player_ctx.i_note % ropts.notes_per_line == 0) {
+
+      // page to next page
+      if (player_ctx.i_note % ropts.notes_per_page == 0) {
+        on_notes = [];
+
+        for (let l of range(ropts.lines_per_page)) {
+          const note_offset = player_ctx.i_page * ropts.notes_per_page + l * ropts.notes_per_line;
+
+          on_notes.push(player_ctx.notes.slice(note_offset, note_offset + ropts.notes_per_line));
+        }
+
+        player_ctx.i_page++;
+      }
+    }
+
+    player_ctx.time_next_note = 0;
+    player_ctx.i_note++;
+  }
+
+  draw_line(ctx, R, on_notes, (player_ctx.i_note-1) % ropts.notes_per_page);
+
+  return player_ctx.is_playing;
+}
+
+
+function render_song(ctx, R, _notes, song) {
     ctx.font = (RAD*1.5)+"px Arial";
 
     // @TODO: @TEMPORAL: strip '-'
-    notes = notes.filter(f=>f!='-'&&!f.includes('-'));
+    player_ctx.notes = _notes.filter(f=>f!='-'&&!f.includes('-'));
 
-    // calc key & mark out-of-key notes
+    // render song once
+    player_ctx.is_playing = false;
+    ranimate(animate);
 
-    // calc pagination
-    let i_page = 0, i_line = 0, i_note = 0, on_notes = [];
-
-    // calc tempo -> animation speed
-    let time_next_note = 0;
-    const note_interval = (60*1000) / ropts.bpm;
-
-    ranimate((t, dt, telapsed)=>{
-
-      // time interval between notes played
-      time_next_note += dt;
-      if (time_next_note > note_interval) {
-          // increment line?
-          if (i_note % ropts.notes_per_line == 0) {
-
-            // page to next page
-            if (i_note % ropts.notes_per_page == 0) {
-              on_notes = [];
-
-              for (let l of range(ropts.lines_per_page)) {
-                const note_offset = i_page * ropts.notes_per_page + l * ropts.notes_per_line;
-
-                on_notes.push(notes.slice(note_offset, note_offset + ropts.notes_per_line));
-              }
-
-              i_page++;
-            }
-          }
-
-          time_next_note = 0;
-          i_note++;
-      }
-
-      // draw currently rendered pages
-//      for (let l of range(ropts.lines_per_page)) {
-//
-//      }
-      draw_line(ctx, R, on_notes, (i_note-1) % ropts.notes_per_page);
-      //draw(ctx, R, notes);
-
-      return true;
-    });
+    // setup player
+    player_ctx.stop();
 }
 
 function draw_line(ctx, R, _lines, current_note) {

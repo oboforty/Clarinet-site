@@ -12,6 +12,7 @@
   {% block head %}{% endblock %}
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   {% block og %}
     <meta property="og:title" content="ClarinetBuddy" />
@@ -22,21 +23,23 @@
   {% endblock %}
 
   <!-- Bootstrap & Vue.js & Bootstrap-vue -->
-  <link type="text/css" rel="stylesheet" href="/css/vendor/bootstrap.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- vendor js -->
   <!-- <script src="/js/vendor/vue.min.js" defer></script> -->
-<!--  <script src="/js/vendor/polyfill.min.js" defer></script>-->
-<!--  <script src="/js/vendor/bootstrap-native.min.js" defer></script>-->
   <script src="/js/vendor/ra.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Custom javascript -->
   {% block scripts %}{% endblock %}
 
   <!-- Custom styles -->
   <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/icons.css">
   {% block styles %}{% endblock %}
 
 </head>
 <body>{% block metacontent %}{% endblock %}</body>
+
+
 </html>

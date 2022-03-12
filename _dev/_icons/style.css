@@ -1,0 +1,161 @@
+@font-face {
+  font-family: 'raicons';
+  src:
+    url('fonts/raicons.ttf?qbuwcc') format('truetype'),
+    url('fonts/raicons.woff?qbuwcc') format('woff'),
+    url('fonts/raicons.svg?qbuwcc#raicons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="ra-"], [class*=" ra-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'raicons' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ra-accordion:before {
+  content: "\e900";
+}
+.ra-amplitude:before {
+  content: "\e901";
+}
+.ra-avocado:before {
+  content: "\e902";
+}
+.ra-bagpipes:before {
+  content: "\e903";
+}
+.ra-banjo:before {
+  content: "\e904";
+}
+.ra-bassoon:before {
+  content: "\e905";
+}
+.ra-cancel:before {
+  content: "\e906";
+}
+.ra-clarinet:before {
+  content: "\e907";
+}
+.ra-cog:before {
+  content: "\e908";
+}
+.ra-djembe:before {
+  content: "\e909";
+}
+.ra-double-quaver:before {
+  content: "\e90a";
+}
+.ra-drum:before {
+  content: "\e90b";
+}
+.ra-drum-kit:before {
+  content: "\e90c";
+}
+.ra-flute:before {
+  content: "\e90d";
+}
+.ra-flying-trout:before {
+  content: "\e90e";
+}
+.ra-french-horn:before {
+  content: "\e90f";
+}
+.ra-grand-piano:before {
+  content: "\e910";
+}
+.ra-guitar:before {
+  content: "\e911";
+}
+.ra-harp:before {
+  content: "\e912";
+}
+.ra-lyre:before {
+  content: "\e913";
+}
+.ra-metronome:before {
+  content: "\e914";
+}
+.ra-microphone:before {
+  content: "\e915";
+}
+.ra-musical-keyboard:before {
+  content: "\e916";
+}
+.ra-musical-notes:before {
+  content: "\e917";
+}
+.ra-musical-score:before {
+  content: "\e918";
+}
+.ra-pan-flute:before {
+  content: "\e919";
+}
+.ra-pause-button:before {
+  content: "\e91a";
+}
+.ra-piano-keys:before {
+  content: "\e91b";
+}
+.ra-play-button:before {
+  content: "\e91c";
+}
+.ra-sands-of-time:before {
+  content: "\e91d";
+}
+.ra-saxophone:before {
+  content: "\e91e";
+}
+.ra-screaming:before {
+  content: "\e91f";
+}
+.ra-shrimp:before {
+  content: "\e920";
+}
+.ra-sound-off:before {
+  content: "\e921";
+}
+.ra-sound-on:before {
+  content: "\e922";
+}
+.ra-sound-waves:before {
+  content: "\e923";
+}
+.ra-speaker:before {
+  content: "\e924";
+}
+.ra-speaker-off:before {
+  content: "\e925";
+}
+.ra-stopwatch:before {
+  content: "\e926";
+}
+.ra-tambourine:before {
+  content: "\e927";
+}
+.ra-trombone:before {
+  content: "\e928";
+}
+.ra-trumpet:before {
+  content: "\e929";
+}
+.ra-tuba:before {
+  content: "\e92a";
+}
+.ra-violin:before {
+  content: "\e92b";
+}
+.ra-xylophone:before {
+  content: "\e92c";
+}
