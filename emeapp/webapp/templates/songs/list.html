@@ -21,7 +21,7 @@
             {% for song in songs %}
             <tr>
               <td>
-                <a class="btn btn-sm btn-link" href="{{ url_for('Songs:get_view', song_id=song.song_id) }}" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="By {{ song.artist }}">
+                <a class="btn btn-sm btn-link" href="{{ url_for('Songs:get_view', song_id=song.song_id) }}" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="By {{ song.artist }} - {{ song.about }}">
                   <b>{{ song.name }}</b>
                 </a>
               </td>

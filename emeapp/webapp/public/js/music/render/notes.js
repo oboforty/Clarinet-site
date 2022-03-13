@@ -64,7 +64,7 @@ function draw_note(ctx, x,y,h,note,text_color) {
 
   if (text_color) {
     ctx.fillStyle = text_color;
-    ctx.fillText(note, x-30, y + 24 + h);
+    ctx.fillText(note, x-30, y + 24);
   }
 }
 

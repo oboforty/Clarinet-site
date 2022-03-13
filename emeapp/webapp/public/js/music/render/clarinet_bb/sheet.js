@@ -7,10 +7,14 @@ const ropts = {
 
     note_time: 0.25, // how much time of bpm interval is spent on playing the note (vs silence)
 
-    col: "black",
-    col_active: "#40739e",
-    col_out: "#353b48",
-    col_out_active: "#8c7ae6",
+    theme: {
+      fill: "#718093",
+      fill_active: "#c23616",
+      fill_out: "#7f8fa6",
+      fill_out_active: "#e84118",
+
+      stroke: "#2f3640",
+    },
 
     get notes_per_page() {
         return this.lines_per_page * this.notes_per_line;
@@ -117,13 +121,12 @@ function animate(t, dt, telapsed) {
   return player_ctx.is_playing;
 }
 
-
 function render_song(ctx, R, _notes, song, cb) {
     ctx.font = (RAD*1.5)+"px Arial";
     ropts.R = R;
 
     // @TODO: @TEMPORAL: strip '-'
-    player_ctx.notes = _notes.filter(f=>f!='-'&&!f.includes('-'));
+    player_ctx.notes = _notes//.filter(f=>f!='-'&&!f.includes('-'));
     player_ctx.bpm = song.tempo;
     player_ctx.scale = new Set(fetch_complete_scale(song.skey));
     player_ctx.on_note_func = cb;
@@ -155,23 +158,34 @@ function draw_line(ctx, R, _lines, current_note, current_line) {
         let y = y_line + 0.75 * R;
         const highlight = player_ctx.is_playing && i == current_note && l == current_line;
         const out_of_key = !player_ctx.scale.has(note);
-
-        const color = highlight ? (out_of_key ? ropts.col_out_active : ropts.col_active) : (out_of_key ? ropts.col_out : ropts.col);
-        ctx.fillStyle = ctx.strokeStyle = color;
+        
+        const color = highlight 
+          ? (out_of_key
+              ? ropts.theme.fill_out_active
+              : ropts.theme.fill_active
+            )
+          : (out_of_key 
+              ? ropts.theme.fill_out
+              : ropts.theme.fill
+            );
+        ctx.fillStyle = color;
+        ctx.strokeStyle = ropts.theme.stroke;
 
         // fingering
-        try {
-          draw_clarinet_fingering(x, y_clari, R_clarinet, note);
-        } catch(e) {
-          // lower register below E3 not found on clarinet
-          ioff++;
-          continue;
+        if (note != '-') {
+          try {
+            draw_clarinet_fingering(x, y_clari, R_clarinet, note);
+          } catch(e) {
+            // lower register below E3 not found on clarinet
+            ioff++;
+            continue;
+          }
         }
 
         // note
         //const w = 4.5*R;
         //const text_color = highlight && ropts.render_note_text ? (i == current_note ? "crimson" : "#4e4e4e") : null;
-        draw_note(ctx, x, y_line, h_note, note, null);
+        draw_note(ctx, x, y_line, h_note, note, "red");
       }
 
       // next line
