@@ -1,5 +1,6 @@
 
 function draw_note(ctx, x,y,h,note,text_color) {
+
   y+=20;
   // full note scale:
   var kR = h/10;
@@ -14,7 +15,6 @@ function draw_note(ctx, x,y,h,note,text_color) {
     noteidx+=7;
   var offsetid = noteidx + 7*octaveidx;
   
-  //console.log(note, offsetid)
 
   // draw note
   var i = offsetid;

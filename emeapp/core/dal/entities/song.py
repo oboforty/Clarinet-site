@@ -32,12 +32,12 @@ class Song(EntityBase):
         self.artist = kwargs.get('artist')
         self.about = kwargs.get('about')
         self.instrument = kwargs.get('instrument')
-        self.skey = kwargs.get('skey')
-        self.strength = kwargs.get('strength')
-        self.tempo = kwargs.get('tempo')
-        self.beats_per_measure = kwargs.get('beats_per_measure')
-        self.beats_type = kwargs.get('beats_type')
-        self.notes = kwargs.get('notes')
+        self.skey = kwargs.get('skey', "G_major")
+        self.strength = kwargs.get('strength', 1)
+        self.tempo = kwargs.get('tempo', 90)
+        self.beats_per_measure = kwargs.get('beats_per_measure', 4)
+        self.beats_type = kwargs.get('beats_type', 4)
+        self.notes = kwargs.get('notes', "")
 
     @property
     def view(self):

@@ -6,7 +6,7 @@ function draw_circ(x,y,r,fill) {
     if (fill) ctx.fill();
     else ctx.stroke();
 }
-  
+
 function draw_drop(x,y,w,h,fill) {
     ctx.beginPath();
     ctx.moveTo(x, y);
@@ -16,13 +16,24 @@ function draw_drop(x,y,w,h,fill) {
     if (fill) ctx.fill();
     else ctx.stroke();
 }
-  
+
 function draw_drop_left(x,y,w,h,fill) {
     ctx.beginPath();
     ctx.moveTo(x+w, y);
     ctx.arc(x, y, h, Math.PI*0.5, Math.PI*1.5);
     ctx.lineTo(x+w, y);
   
+    if (fill) ctx.fill();
+    else ctx.stroke();
+}
+
+function draw_capsule(x,y,w,h,fill) {
+    ctx.beginPath();
+    //ctx.moveTo(x+w, y);
+    ctx.arc(x-w/2, y, h, Math.PI*0.5, Math.PI*1.5);
+    ctx.arc(x+w/2, y, h, Math.PI*1.5, Math.PI*0.5);
+    ctx.closePath();
+
     if (fill) ctx.fill();
     else ctx.stroke();
 }
@@ -39,16 +50,16 @@ const clarinet_fingering = {
     "B3":   [".XXX|OXO", ""],
     // ------------------------
     "C4":   [".XXX|OOO", ""],
-    "C#4":  [" OOO|OOO", "@TODO"], // @TODO
+    "C#4":  [" OOO|OOO", "@TODO"], // @TODO: 4 oldal keys / special 1st
     "D4":   [".XXO|OOO", ""],
-    "D#4":  [" OOO|OOO", "@TODO"], // @TODO
+    "D#4":  [".XXO|OOO", "4"],
     "E4":   [".XOO|OOO", ""],
-    "F4":   [".OOO|OOO", "@TODO"], // @TODO
+    "F4":   [".OOO|OOO", ""],
     "F#4":  [" XOO|OOO", ""],
     "G4":   [" OOO|OOO", ""],
-    "G#4":  [" OOO|OOO", "@TODO"], // @TODO
+    "G#4":  [" OOO|OOO", "@TODO"], // @TODO: felso oldalso reg key
     "A4":   [" OOO|OOO", "A"],
-    "A#4":  [" OOO|OOO", "@TODO"], // @TODO
+    "A#4":  ["'OOO|OOO", "A"],
     "B4":   ["!XXX|XXX", "⡀"],
     // ------------------------
     "C5":   ["!XXX|XXX", "⢀"],
@@ -59,27 +70,27 @@ const clarinet_fingering = {
     "F5":   ["!XXX|XOO", ""],
     "F#5":  ["!XXX|OXO", ""],
     "G5":   ["!XXX|OOO", ""],
-    "G#5":  [" OOO|OOO", "@TODO"], // @TODO
+    "G#5":  [" OOO|OOO", "@TODO"], // @TODO: 4 oldal keys / special 1st
     "A5":   ["!XXO|OOO", ""],
-    "A#5":  [" OOO|OOO", "@TODO"], // @TODO
+    "A#5":  ["!XXO|OOO", "4"],
     "B5":   ["!XOO|OOO", ""],
     // ------------------------
-    "C6":   [" OOO|OOO", "@TODO"], // @TODO
-    "C#6":   [" OOO|OOO", "@TODO"], // @TODO
-    "D6":   [" OOO|OOO", "@TODO"], // @TODO
-    "D#6":   [" OOO|OOO", "@TODO"], // @TODO
-    "E6":   [" OOO|OOO", "@TODO"], // @TODO
-    "F6":   [" OOO|OOO", "@TODO"], // @TODO
-    "F#6":   [" OOO|OOO", "@TODO"], // @TODO
-    "G6":   [" OOO|OOO", "@TODO"], // @TODO
-    "G#6":   [" OOO|OOO", "@TODO"], // @TODO
-    "A6":   [" OOO|OOO", "@TODO"], // @TODO
-    "A#6":   [" OOO|OOO", "@TODO"], // @TODO
-    "B6":   [" OOO|OOO", "@TODO"], // @TODO
+    "C6":   ["!OOO|OOO", ""],
+    "C#6":   ["!OXX|XXO", ""],
+    "D6":   ["!OXX|XOO", "⠈"],
+    "D#6":   [" OOO|OOO", "@TODO"], // @TODO: also banana key
+    "E6":   ["!OXX|OOO", "⠈"],
+    "F6":   [" OOO|OOO", "@TODO"], // @TODO: 4 oldal keys / special 1st
+    "F#6":   ["!OXO|OOO", "⠈"],
+    "G6":   ["!OXO|XXO", "⠈"],
+    "G#6":   [" OOO|OOO", "@TODO"], // @TODO: also banana key
+    "A6":   [" OOO|OOO", "@TODO"], // @TODO: 4 oldal keys / 4th (long)
+    "A#6":   [" OOO|OOO", "@TODO"], // @TODO: wtf??
+    "B6":   [" OOO|OOO", "@TODO"], // @TODO: wtf??
     // ------------------------
-    "C7":   [" OOO|OOO", "@TODO"], // @TODO
+    "C7":   [" OOO|OOO", "@TODO"], // @TODO: wtf??
 };
-    // @TODO: banana keys
+
 
 function draw_clarinet_fingering(x,y,R, note) {
     if (!clarinet_fingering[note]) {
@@ -90,13 +101,20 @@ function draw_clarinet_fingering(x,y,R, note) {
     const [fingering, mod] = clarinet_fingering[note];
     const mark = fingering[0];
 
-    // Register keys (back)  
+    if (mod == "@TODO") {
+        ctx.fillText("? " + note + ' ?', x-3*R, y+5*R);
+        return;
+    }
+
+    // Register keys (back)
+    ctx.lineWidth = 0.5;
     draw_drop(x-2*R, y+R, R*0.3, R*1.2, mark =='!' || mark == "'");
     draw_circ(x-2*R, y+R + 2.12*R, R*0.3, mark =='!' || mark=='.');
 
     y += 1.25 * R;
 
     // A key
+    ctx.lineWidth = 1;
     draw_drop(x, y-1.25*R, R*0.5, R, mod.includes('A'));
 
     y += 1.7 * R;
@@ -116,9 +134,17 @@ function draw_clarinet_fingering(x,y,R, note) {
     ctx.lineTo(x + 0.75*R, y);
     ctx.stroke();
 
+    // draw 1,2,3,4 keys
+    ctx.lineWidth = 0.5;
+    draw_capsule(x + 2.1*R, y-0.6*R, 0.5*R, 0.2*R, mod.includes('1'));
+    draw_capsule(x + 2.1*R, y, 0.5*R, 0.2*R, mod.includes('2'));
+    draw_capsule(x + 2.1*R, y+0.6*R, 0.5*R, 0.2*R, mod.includes('3'));
+    draw_capsule(x + 2*R, y+1.2*R, 0.8*R, 0.2*R, mod.includes('4'));
+
     y += 1.75 * R;
 
     // 1,2,3
+    ctx.lineWidth = 1;
     for (let o of range(3)) {
         draw_circ(x,y,R,fingering[o+5] == 'X');
 
@@ -126,6 +152,7 @@ function draw_clarinet_fingering(x,y,R, note) {
     }
 
     // bridge keys / keys
+    ctx.lineWidth = 0.5;
     draw_drop_left(x-2*R, y-0.8*R, R*0.52, R*0.28, mod.includes("⠁"));
     draw_drop_left(x-2*R, y, R*0.52, R*0.28, mod.includes("⡀"));
     draw_drop_left(x-1.5*R, y-0.9*R, R*0.52, R*0.28, mod.includes("⠈"));

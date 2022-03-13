@@ -58,7 +58,16 @@ function fetch_scale(scale, oct){
         }
     }
 
-
-
     return _scale;
+}
+
+function fetch_complete_scale(scale) {
+    const is = [3,4,5,6,7];
+
+    let _notes = [];
+    for (let oct of is)
+      _notes = _notes.concat(fetch_scale(scale, oct));
+    _notes = [...new Set(_notes)];
+    
+    return _notes;
 }

@@ -23,8 +23,8 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="tempo">Recommended tempo:</label>
-          <input class="form-control" placeholder="e.g. 120" name="tempo" id="tempo" value="{{ song.tempo if song else '' }}" type="text">
+          <label for="bpmrange" class="form-label">Tempo: <span id="labeltempo">0</span></label>
+          <input type="range" class="form-range" name="tempo" id="tempo" min="25" max="200" step="1" value="{{ song.tempo if song else '' }}">
         </div>
         <div class="form-group">
           <label for="skey">Key:</label>
@@ -57,3 +57,16 @@
   </div>
 
 </form>
+
+
+<script type="text/javascript">
+  $("#tempo").oninput = function() {  
+      $("#labeltempo").innerText = this.value;
+  };
+
+  {% if song and song.tempo %}
+    $("#tempo").value = {{ song.tempo }};
+
+    $("#labeltempo").innerText = $("#tempo").value;
+  {% endif %}
+</script>
