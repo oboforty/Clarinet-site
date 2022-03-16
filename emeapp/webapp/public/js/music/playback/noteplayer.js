@@ -13,7 +13,7 @@ class NotePlayer {
     }
 
     play(note) {
-        if (!this.sfx_cache[note]) {
+        if (!note || !this.sfx_cache[note]) {
             console.error("Note sound not found:", note);
             return;
         }

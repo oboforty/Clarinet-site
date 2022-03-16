@@ -47,6 +47,14 @@ const player_ctx = {
     return Math.ceil(len(this.notes) / ropts.notes_per_page);
   },
 
+  get current_note() {
+    let note = this.notes[this.i_note];
+
+    if (!note || note == '-')
+        return null;
+    return note;
+  },
+
   start() {
     if (!this.is_playing) {
       this.is_playing = true;
@@ -61,10 +69,12 @@ const player_ctx = {
   pause() {
     this.is_playing = false;
     this.time_next_note = 1;
+    note_player.stop_all();
   },
 
   stop() {
     this.set_page(0)
+    note_player.stop_all();
   },
 
   set_page(p) {
@@ -83,6 +93,8 @@ const player_ctx = {
     this.i_page = p;
   }
 };
+
+const note_player = new NotePlayer("clarinet_bb");
 
 function animate(t, dt, telapsed) {
 
@@ -109,6 +121,15 @@ function animate(t, dt, telapsed) {
       }
     }
 
+    // play note
+    if (player_ctx.is_playing) {
+        const cnote_ = player_ctx.current_note;
+        if (cnote_) {
+            note_player.stop_current();
+            note_player.play(cnote_);
+        }
+    }
+
     player_ctx.time_next_note = 0;
     player_ctx.i_note++;
   }
@@ -132,6 +153,8 @@ function render_song(ctx, R, _notes, song, cb) {
     player_ctx.on_note_func = cb;
 
     player_ctx.stop();
+
+    note_player.load_notes(new Set(player_ctx.notes));
 }
 
 function draw_line(ctx, R, _lines, current_note, current_line) {
