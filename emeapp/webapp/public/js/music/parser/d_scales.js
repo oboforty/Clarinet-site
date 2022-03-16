@@ -31,9 +31,15 @@ function fetch_scale(scale, oct){
             // i++;
         }
     } else {
-        // scale 
+        if (!scale.includes('_'))
+            return [];
+
+        // scale
         let [first_note, _ky] = scale.split('_');
         const steps = scale_meta[_ky];
+
+        if (!steps)
+            return [];
     
         _scale.push(first_note+oct);
         let i = notes.indexOf(first_note);

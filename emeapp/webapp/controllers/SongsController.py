@@ -35,7 +35,8 @@ class SongsController:
         return render_template('/songs/create.html')
 
     def post(self):
-        song_data = request.form.copy()
+        song_data = request.form.to_dict().copy()
+
         song = Song(**song_data)
         song.song_id = uuid.uuid4()
 
@@ -46,7 +47,7 @@ class SongsController:
     def post_edit(self, song_id):
         song = self.repo.get(song_id)
 
-        song_data = request.form.copy()
+        song_data = request.form.to_dict().copy()
         song.set(**song_data)
 
         self.repo.save()
