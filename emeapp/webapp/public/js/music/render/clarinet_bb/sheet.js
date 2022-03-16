@@ -144,14 +144,13 @@ function animate(t, dt, telapsed) {
 
 function render_song(ctx, R, _notes, song, cb) {
     ctx.font = (RAD*1.5)+"px Arial";
-    ropts.R = R;
 
-    // @TODO: @TEMPORAL: strip '-'
+    ropts.R = R;
+    ropts.bpm = song.tempo;
+
     player_ctx.notes = _notes//.filter(f=>f!='-'&&!f.includes('-'));
-    player_ctx.bpm = song.tempo;
     player_ctx.scale = new Set(fetch_complete_scale(song.skey));
     player_ctx.on_note_func = cb;
-
     player_ctx.stop();
 
     note_player.load_notes(new Set(player_ctx.notes));
