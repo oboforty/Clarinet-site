@@ -20,6 +20,10 @@
         <div class="p-2">
             <a href="{{ url_for('Home:get_index') }}" class="btn btn-sm btn-secondary">Back</a>
 
+            {% if not song.is_scale %}
+                <a href="{{ url_for('Songs:get_view_scale', scale_id=song.skey) }}" class="btn btn-sm btn-secondary">Scale</a>
+            {% endif %}
+
           <h2 class="mb-0">{{ song.name }}</h2>
           <div class="mb-3"><span class="badge bg-info">by {{ song.artist }}</span></div>
           <hr/>
@@ -57,11 +61,19 @@ const width = canvas.width;
 const height = canvas.height;
 const RAD = 15;
 
-render_song(ctx, RAD, {{ notes|tojson|safe }}, {{ song.view|tojson|safe }}, ()=>{
+function guiOnNoteChange() {
     // on note change
 
     $("#nrpage").innerText = `${player_ctx.i_page} / ${player_ctx.total_pages}`;
-});
+}
+
+{% if song.is_scale %}
+const _notes = fetch_complete_scale('{{ song.skey }}');
+{% else %}
+const _notes = {{ notes|tojson|safe }};
+{% endif %}
+
+render_song(ctx, RAD, _notes, {{ song.view|tojson|safe }}, guiOnNoteChange);
 $("#nrpage").innerText = `1 / ${player_ctx.total_pages}`;
 
 window.player_ctx = player_ctx;

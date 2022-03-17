@@ -12,7 +12,8 @@ class SongsController:
         self.repo: SongRepository = get_repo(Song)
 
         server.preset_endpoints({
-            'GET /songs/<song_id>': 'Songs:get_view'
+            'GET /songs/<song_id>': 'Songs:get_view',
+            'GET /scales/<scale_id>': 'Songs:get_view_scale'
         })
 
     def index(self):
@@ -26,6 +27,22 @@ class SongsController:
         notes = song.notes.split()
 
         return render_template('/songs/view.html', song=song, notes=notes)
+
+    def get_view_scale(self, scale_id):
+        song = Song(
+            song_id=scale_id,
+            skey=scale_id,
+            name=scale_id.replace('_', ' ') + ' scale',
+            artist='ClarinetBuddy',
+            is_scale=True,
+            instrument='clarinet_bb',
+            #tempo=90,
+            strength=1,
+            notes=None,
+            about='Scale practice'
+        )
+
+        return render_template('/songs/view.html', song=song, notes=None)
 
     def get_edit(self, song_id):
         song = self.repo.get(song_id)

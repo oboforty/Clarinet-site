@@ -38,6 +38,7 @@ class Song(EntityBase):
         self.beats_per_measure = kwargs.get('beats_per_measure', 4)
         self.beats_type = kwargs.get('beats_type', 4)
         self.notes = kwargs.get('notes', "")
+        self.is_scale = kwargs.get('is_scale', False)
 
     @property
     def view(self):
