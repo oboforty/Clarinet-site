@@ -147,6 +147,9 @@ const clarinet_fingering = {
     // "C7":   [" OOO|OOO", "@TODO"], // @TODO: wtf??
 };
 
+function instrument_include(note) {
+    return clarinet_fingering[note] != null;
+}
 
 function draw_clarinet_fingering(x,y,R, note) {
     if (!clarinet_fingering[note]) {

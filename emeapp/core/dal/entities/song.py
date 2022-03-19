@@ -17,10 +17,11 @@ class Song(EntityBase):
     skey = Column(String(20))
     strength = Column(SmallInteger())
     tempo = Column(SmallInteger())
-    # beats_per_measure = Column(SmallInteger())
-    # beats_type = Column(SmallInteger())
+    beats_per_measure = Column(SmallInteger())
+    beats_type = Column(SmallInteger())
 
     notes = Column(Text())
+    ropts = Column(JSON_GEN())
 
     def __init__(self, **kwargs):
         self.song_id = kwargs.get('song_id')
@@ -38,6 +39,7 @@ class Song(EntityBase):
         self.beats_per_measure = kwargs.get('beats_per_measure', 4)
         self.beats_type = kwargs.get('beats_type', 4)
         self.notes = kwargs.get('notes', "")
+        self.ropts = kwargs.get('ropts', {})
         self.is_scale = kwargs.get('is_scale', False)
 
     @property
@@ -51,10 +53,11 @@ class Song(EntityBase):
             'skey': self.skey,
             'strength': self.strength,
             'tempo': self.tempo,
-            # 'beats_per_measure': self.beats_per_measure,
-            # 'beats_type': self.beats_type,
+            'beats_per_measure': self.beats_per_measure,
+            'beats_type': self.beats_type,
+            'ropts': self.ropts,
         }
 
-    # @property
-    # def time_signature(self):
-    #     return (self.beats_per_measure, self.beats_type)
+    @property
+    def time_signature(self):
+        return (self.beats_per_measure, self.beats_type)

@@ -11,6 +11,10 @@
       <div>
       </div>
     </div>
+
+    {% if songs %}
+      {% include 'songs/fragments/song_list.html' %}
+    {% endif %}
   </div>
 
 {% endblock %}

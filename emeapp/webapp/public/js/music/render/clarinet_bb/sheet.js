@@ -7,6 +7,11 @@ const ropts = {
 
     note_time: 0.25, // how much time of bpm interval is spent on playing the note (vs silence)
 
+    play_sound: true,
+    play_metronome: false,
+    show_instrument: true,
+    show_notes: false,
+
     theme: {
       fill: "#718093",
       fill_active: "#c23616",
@@ -23,6 +28,19 @@ const ropts = {
     get note_interval() {
       return (60*1000) / this.bpm;
     },
+
+    override(_opts) {
+        this.render_note_text = _opts.render_note_text || this.render_note_text;
+        this.lines_per_page = _opts.lines_per_page || this.lines_per_page;
+        this.notes_per_line = _opts.notes_per_line || this.notes_per_line;
+        this.bpm = _opts.bpm || this.bpm;
+        this.note_time = _opts.note_time || this.note_time;
+        this.play_sound = _opts.play_sound || this.play_sound;
+        this.play_metronome = _opts.play_metronome || this.play_metronome;
+        this.show_instrument = _opts.show_instrument || this.show_instrument;
+        this.show_notes = _opts.show_notes || this.show_notes;
+        this.theme = _opts.theme || this.theme;
+    }
 };
 
 const player_ctx = {
@@ -72,8 +90,15 @@ const player_ctx = {
     note_player.stop_all();
   },
 
+  reset() {
+    this.is_playing = false;
+    this.time_next_note = 1;
+    this.set_page(this.i_page-1);
+    note_player.stop_all();
+  },
+
   stop() {
-    this.set_page(0)
+    this.set_page(0);
     note_player.stop_all();
   },
 
@@ -153,7 +178,10 @@ function render_song(ctx, R, _notes, song, cb) {
     player_ctx.on_note_func = cb;
     player_ctx.stop();
 
-    note_player.load_notes(new Set(player_ctx.notes));
+    const notes_load = new Set(player_ctx.notes);
+    notes_load.delete('-');
+
+    note_player.load_notes(notes_load);
 }
 
 function draw_line(ctx, R, _lines, current_note, current_line) {
@@ -163,7 +191,7 @@ function draw_line(ctx, R, _lines, current_note, current_line) {
   const x_end = width - 3.0 * R;
   const h_note = 3*R;
   const R_clarinet = 0.7 * R;
-  const h_clari = get_clarinet_height(R_clarinet);
+  const h_clari = ropts.show_instrument ? get_clarinet_height(R_clarinet) : 0;
 
   let y_clari = 0.75 * R;
   let y_line = h_clari;
@@ -194,7 +222,7 @@ function draw_line(ctx, R, _lines, current_note, current_line) {
         ctx.strokeStyle = ropts.theme.stroke;
 
         // fingering
-        if (note != '-') {
+        if (note != '-' && ropts.show_instrument) {
           try {
             draw_clarinet_fingering(x, y_clari, R_clarinet, note);
           } catch(e) {
@@ -207,7 +235,7 @@ function draw_line(ctx, R, _lines, current_note, current_line) {
         // note
         //const w = 4.5*R;
         //const text_color = highlight && ropts.render_note_text ? (i == current_note ? "crimson" : "#4e4e4e") : null;
-        draw_note(ctx, x, y_line, h_note, note, "red");
+        draw_note(ctx, x, y_line, h_note, note, ropts.show_notes ? "red" : null);
       }
 
       // next line

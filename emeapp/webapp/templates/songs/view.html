@@ -34,8 +34,34 @@
             <br/>
 
             <button id="play" class="btn btn-light border border-secondary"><span class="ra ra-lg ra-play-button"></span></button>
-            <!-- <button id="pause" class="btn btn-light border border-secondary"><span class="ra ra-lg ra-pause-button"></span></button> -->
+            <button id="pause" class="btn btn-light border border-secondary"><span class="ra ra-lg ra-pause-button"></span></button>
             <button id="stop" class="btn btn-light border border-secondary"><span class="ra ra-lg ra-stop-button"></span></button>
+
+            <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <span class="ra ra-cog"></span>
+            </button>
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body mt-2">
+
+                  <button id="play-notes" class="btn btn-light">
+                      <span id="play-notes-ind" class="ra ra-2x ra-speaker"></span>
+                      <span class="ra ra-2x ra-clarinet"></span>
+                  </button>
+                  <button id="play-metronome" class="btn btn-light">
+                      <span id="play-metronome-ind" class="ra ra-2x ra-speaker-off"></span>
+                      <span class="ra ra-2x ra-metronome"></span>
+                  </button>
+                  <button id="show-notes" class="btn btn-light">
+                      <span id="show-notes-ind" class="ra ra-2x ra-sound-off"></span>
+                  </button>
+                  <button id="show-instrument" class="btn btn-light">
+                      <span class="ra-stack">
+                        <i id="show-instrument-ind" class="ra-stack-2x text-danger"></i>
+                        <i class="ra-clarinet ra-stack-2x"></i>
+                      </span>
+                  </button>
+              </div>
+            </div>
           </div>
         </div>
         <div style="min-width: 850px; min-height: 500px;">
@@ -54,6 +80,8 @@
     </div>
 </div>
 
+<script src="/js/music/playback/gui.js"></script>
+
 <script type="text/javascript">
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -61,82 +89,24 @@ const width = canvas.width;
 const height = canvas.height;
 const RAD = 15;
 
-function guiOnNoteChange() {
-    // on note change
+let initcb = init_gui({{ song.tempo }});
 
-    $("#nrpage").innerText = `${player_ctx.i_page} / ${player_ctx.total_pages}`;
-}
 
 {% if song.is_scale %}
-const _notes = fetch_complete_scale('{{ song.skey }}');
+let _notes = fetch_complete_scale('{{ song.skey }}');
+_notes = _notes.filter( function( el ) {
+  return instrument_include( el );
+} );
 {% else %}
 const _notes = {{ notes|tojson|safe }};
 {% endif %}
 
-render_song(ctx, RAD, _notes, {{ song.view|tojson|safe }}, guiOnNoteChange);
-$("#nrpage").innerText = `1 / ${player_ctx.total_pages}`;
+ropts.override({{ song.ropts|tojson|safe }});
+
+render_song(ctx, RAD, _notes, {{ song.view|tojson|safe }}, initcb);
 
 window.player_ctx = player_ctx;
 window.ropts = ropts;
-
-
-$("#play").onclick = function () {
-    if (player_ctx.is_playing) {
-        this.classList.remove("btn-danger");
-        this.classList.add("btn-light");
-
-        player_ctx.pause();
-
-        $("#bpmrange").disabled = false;
-    } else {
-        this.classList.add("btn-danger");
-        this.classList.remove("btn-light");
-
-        player_ctx.start();
-
-        $("#bpmrange").disabled = true;
-    }
-};
-$("#stop").onclick = function () {
-    $("#play").classList.add("btn-light");
-    $("#play").classList.remove("btn-danger");
-
-    player_ctx.stop();
-
-    $("#bpmrange").disabled = false;
-};
-
-$("#bpmrange").oninput = function() {  
-    ropts.bpm = parseInt(this.value);
-
-    $("#tempo").innerText = ropts.bpm;
-};
-
-{% if song.tempo %}
-    $("#bpmrange").value = {{ song.tempo }};
-    $("#tempo").innerText = $("#bpmrange").value;
-{% endif %}
-
-$("#prev").onclick = function() {
-    const page = player_ctx.i_page - 1;
-
-    if (page >= 0)
-        player_ctx.set_page(page);
-}
-
-$("#next").onclick = function() {
-    const page = player_ctx.i_page + 1;
-
-    if (page < player_ctx.total_pages)
-        player_ctx.set_page(page);
-}
-
-// $("#pause").onclick = function () {
-//     this.classList.add("btn-danger");
-//     this.classList.remove("btn-light");
-
-//     player_ctx.pause;
-// };
 </script>
 
 {% endblock %}

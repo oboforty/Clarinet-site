@@ -5,52 +5,6 @@
   <div class="container">
     <h1>Songs list</h1>
     
-    <div class="row">
-      <div class="col">
-        <table class="table table-sm table-hover">
-          <thead>
-            <tr>
-              <th>Song</th>
-              <th>Level</th>
-              <th>Key</th>
-              <th>Instrument</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for song in songs %}
-            <tr>
-              <td>
-                <a class="btn btn-sm btn-link" href="{{ url_for('Songs:get_view', song_id=song.song_id) }}" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="By {{ song.artist }} - {{ song.about }}">
-                  <b>{{ song.name }}</b>
-                </a>
-              </td>
-              <td>{{ song.strength }}</td>
-              <td>{{ song.skey }}</td>
-              <td>{{ song.instrument }}
-              <td>
-                <a href="{{ url_for('Songs:get_edit', song_id=song.song_id) }}" title="{{ song.name }}">Edit</a>
-                <a href="{{ url_for('Songs:delete', song_id=song.song_id) }}" title="{{ song.name }}">Delete</a>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-      <div class="col">
-        <a href="{{ url_for('Songs:get_create') }}" class="btn btn-primary">Create new song</a>
-      </div>
-    </div>
+    {% include 'songs/fragments/song_list.html' %}
   </div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-window.onload = () => {
-  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
-  });
-}
-</script>
 {% endblock %}
