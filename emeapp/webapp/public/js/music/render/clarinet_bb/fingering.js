@@ -24,9 +24,8 @@ function draw_drop_left(x,y,w,h,fill) {
     ctx.lineTo(x+w, y);
  
     let exfill = ctx.fillStyle;
-    if (!fill) 
+    if (!fill)
         ctx.fillStyle = 'white';
-    
     ctx.fill();
     ctx.stroke();
     ctx.fillStyle = exfill;

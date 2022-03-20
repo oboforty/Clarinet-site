@@ -11,7 +11,7 @@ function render_scale(ctx, R, scale_name, octave) {
 }
 
 function draw(ctx, R, _notes) {
-  ctx.clearRect(0,0,width,height);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
   // draw each note
   let ioff = 0;

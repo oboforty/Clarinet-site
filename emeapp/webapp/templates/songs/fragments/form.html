@@ -23,12 +23,21 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="bpmrange" class="form-label">Tempo: <span id="labeltempo">0</span></label>
+          <label for="tempo" class="form-label">Tempo: <span id="labeltempo">0</span></label>
           <input type="range" class="form-range" name="tempo" id="tempo" min="25" max="200" step="1" value="{{ song.tempo if song else '' }}">
         </div>
         <div class="form-group">
           <label for="skey">Key:</label>
           <input class="form-control" placeholder="C minor" name="skey" id="skey" value="{{ song.skey if song else '' }}" type="text">
+        </div>
+        <div class="form-group">
+          <label for="sig1">Time Signature:</label>
+
+          <div class="input-group">
+            <input type="text" class="form-control" id="sig1" name="" placeholder="Beats" value="{{ song.skey if song else 4 }}">
+            <div class="input-group-text">/</div>
+            <input type="text" class="form-control" id="sig2" name="" placeholder="Beats" value="{{ song.skey if song else 4 }}">
+          </div>
         </div>
         <div class="form-group">
           <label for="strength">Hardness:</label>
@@ -51,6 +60,11 @@
     <div class="col-10">
       <fieldset>
         <textarea class="form-control song-notes" placeholder="Description about the song" id="notes" name="notes">{{ song.notes if song else '' }}</textarea>
+
+        <div class="form-group">
+          <label for="ropts">Playback Options:</label>
+          <textarea class="form-control song-notes" placeholder="Description about the song" id="ropts" name="ropts">{{ song.ropts|tojson|safe if song else '{}' }}</textarea>
+        </div>
 
       </fieldset>
     </div>

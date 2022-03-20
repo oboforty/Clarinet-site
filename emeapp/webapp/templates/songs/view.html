@@ -5,6 +5,7 @@
 
 <script type="text/javascript" src="/js/music/playback/noteplayer.js"></script>
 
+<script type="text/javascript" src="/js/music/render/player.js"></script>
 <script type="text/javascript" src="/js/music/render/notes.js"></script>
 <script type="text/javascript" src="/js/music/render/{{ song.instrument }}/fingering.js"></script>
 <script type="text/javascript" src="/js/music/render/{{ song.instrument }}/sheet.js"></script>
@@ -88,6 +89,8 @@ const ctx = canvas.getContext("2d");
 const width = canvas.width;
 const height = canvas.height;
 const RAD = 15;
+
+const _INSTRUMENT = "{{ song.instrument }}";
 
 let initcb = init_gui({{ song.tempo }});
 

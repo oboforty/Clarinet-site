@@ -14,24 +14,7 @@ function draw_note(ctx, x,y,h,note,text_color) {
   if (note[0]=='A'||note[0]=='B')
     noteidx+=7;
   var offsetid = noteidx + 7*octaveidx;
-  
 
-  // draw note
-  var i = offsetid;
-  var nx = x, nR = kR-0.5;
-  var ny = startY-i*kR;
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.moveTo(nx+nR/2, ny+nR/2);
-  ctx.arc(nx, ny, nR, 0, Math.PI*2);
-  ctx.stroke();
-  ctx.closePath();
-  ctx.lineWidth = 1;
-
-  // draw sharp/mol
-  if (mod != null) {
-    ctx.fillText(mod, x-24, ny+8);
-  }
 
   // draw helper lines
   if (offsetid < -1) {
@@ -62,9 +45,24 @@ function draw_note(ctx, x,y,h,note,text_color) {
     }
   }
 
+  // draw note
+  var i = offsetid;
+  var nx = x, nR = kR-0.5;
+  var ny = startY-i*kR;
+  ctx.beginPath();
+  ctx.arc(nx, ny, nR+1, 0, Math.PI*2);
+  ctx.fill();
+  ctx.closePath();
+  ctx.fillRect(nx+nR/2+1.5, ny-5*nR, 2, 4.5*kR);
+
+  // draw sharp/mol
+  if (mod != null) {
+    ctx.fillText(mod, x-24, ny+8);
+  }
+
   if (text_color) {
-    ctx.fillStyle = text_color;
-    ctx.fillText(note, x-30, y + 24);
+    //ctx.fillStyle = text_color;
+    ctx.fillText(note, x+10, y - h + 12);
   }
 }
 

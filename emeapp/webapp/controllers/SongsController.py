@@ -36,7 +36,6 @@ class SongsController:
             artist='ClarinetBuddy',
             is_scale=True,
             instrument='clarinet_bb',
-            #tempo=90,
             strength=1,
             notes=None,
             about='Scale practice'
