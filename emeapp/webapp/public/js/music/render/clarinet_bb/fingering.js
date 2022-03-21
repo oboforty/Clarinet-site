@@ -130,7 +130,7 @@ const clarinet_fingering = {
     "A#5":  ["!XXO|OOO", "4"],
     "B5":   ["!XOO|OOO", ""],
     // ------------------------
-    // "C6":   ["!OOO|OOO", ""],
+    "C6":   ["!OOO|OOO", ""],
     // "C#6":   ["!OXX|XXO", ""],
     // "D6":   ["!OXX|XOO", "⠈"],
     // "D#6":   ["!OXX|XOO", "⠈LBAN"],
