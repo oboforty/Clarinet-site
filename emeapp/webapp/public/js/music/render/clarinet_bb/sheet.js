@@ -2,7 +2,7 @@
 
 function draw_line(ctx, R, _lines, current_note, current_line) {
   ctx.fillStyle = "white";
-  ctx.fillRect(0,0,width,height);
+  ctx.fillRect(0,0,canvas.width,canvas.height);
 
   const x_start = 3.0 * R;
   const x_end = canvas.width - 3.0 * R;

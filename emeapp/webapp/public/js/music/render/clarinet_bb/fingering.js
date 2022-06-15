@@ -157,6 +157,12 @@ const clarinet_fingering = {
     "F#6":   ["!OXO|OOO", "⠈"],
 
     // @todo: G6, G#6, A6, A#6, C7
+    // "G6":   ["!OOX|OXX", "⠈"],
+    // "G#6":   ["!OXX|XOO", "⠈LBAN"],
+    // "A6":   [" OOO|OOO", "@TODO"], // @TODO: 4 oldal keys / 4th (long)
+    // "A#6":   [" OOO|OOO", "@TODO"], // @TODO: wtf??
+    // "B6":   [" OOO|OOO", "@TODO"], // @TODO: wtf??
+    // "C7":   [" OOO|OOO", "@TODO"], // @TODO: wtf??
 };
 
 function instrument_include(note) {
