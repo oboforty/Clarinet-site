@@ -61,6 +61,23 @@ function draw_lower_banana(x,y,w,h, fill) {
 
 }
 
+function draw_upper_banana(x,y,w,h, fill) {
+    ctx.beginPath();
+
+    ctx.moveTo(x+w/2, y-h/2);
+    //ctx.lineTo(x-w/2, y+h/2);
+    //ctx.arc(x, y, w/2.5, 0, Math.PI);
+    ctx.ellipse(x, y, w/2, h/2, -0.1*Math.PI, 0, Math.PI);
+
+    // ctx.lineTo(x+w/2, y+h/2+h/10);
+    // ctx.lineTo(x-w/2, y-h/2);
+    ctx.closePath();
+
+    if (fill) ctx.fill();
+    ctx.stroke();
+
+}
+
 function draw_c_bridge1(x,y,w,h,fill) {
 
 }
@@ -102,12 +119,12 @@ const clarinet_fingering = {
     "G#3":  [".XXX|XXX", "⠈"],
     "A3":   [".XXX|XXO", ""],
     "A#3":  [".XXX|XOO", ""],
-    "B3":   [".XXX|OXO", ""],
+    "B3":   [".XXX|XOO", "LBAN"],
     // ------------------------
     "C4":   [".XXX|OOO", ""],
     "C#4":  [".XXX|OOO", "C#key"],
     "D4":   [".XXO|OOO", ""],
-    "D#4":  [".XXO|OOO", "4"],
+    "D#4":  [".XXO|OOO", "UBAN"],
     "E4":   [".XOO|OOO", ""],
     "F4":   [".OOO|OOO", ""],
     "F#4":  [" XOO|OOO", ""],
@@ -123,27 +140,23 @@ const clarinet_fingering = {
     "D#5":  ["!XXX|XXX", "⠈"],
     "E5":   ["!XXX|XXO", ""],
     "F5":   ["!XXX|XOO", ""],
-    "F#5":  ["!XXX|OXO", ""],
+    "F#5":  ["!XXX|XOO", "LBAN"],
     "G5":   ["!XXX|OOO", ""],
     "G#5":  ["!XXX|OOO", "C#key"],
     "A5":   ["!XXO|OOO", ""],
-    "A#5":  ["!XXO|OOO", "4"],
+    "A#5":  ["!XXO|OOO", "UBAN"],
     "B5":   ["!XOO|OOO", ""],
     // ------------------------
-    // "C6":   ["!OOO|OOO", ""],
-    // "C#6":   ["!OXX|XXO", ""],
-    // "D6":   ["!OXX|XOO", "⠈"],
-    // "D#6":   ["!OXX|XOO", "⠈LBAN"],
-    // "E6":   ["!OXX|OOO", "⠈"],
-    // "F6":   [" OOO|OOO", "@TODO"], // @TODO: 4 oldal keys / special 1st
-    // "F#6":   ["!OXO|OOO", "⠈"],
-    // "G6":   ["!OOX|OXX", "⠈"],
-    // "G#6":   ["!OXX|XOO", "⠈LBAN"],
-    // "A6":   [" OOO|OOO", "@TODO"], // @TODO: 4 oldal keys / 4th (long)
-    // "A#6":   [" OOO|OOO", "@TODO"], // @TODO: wtf??
-    // "B6":   [" OOO|OOO", "@TODO"], // @TODO: wtf??
-    // // ------------------------
-    // "C7":   [" OOO|OOO", "@TODO"], // @TODO: wtf??
+    "C6":   ["!OOO|OOO", ""],
+
+    "C#6":   ["!OXX|XXO", ""],
+    "D6":   ["!OXX|XOO", "⠈"],
+    "D#6":   ["!OXX|XOO", "⠈LBAN"],
+    "E6":   ["!OXX|OOO", "⠈"],
+    "F6":   ["!OXX|OOO", "⠈C#key"],
+    "F#6":   ["!OXO|OOO", "⠈"],
+
+    // @todo: G6, G#6, A6, A#6, C7
 };
 
 function instrument_include(note) {
@@ -188,6 +201,9 @@ function draw_clarinet_fingering(x,y,R, note) {
 
         y += 2.5*R;
     }
+    // draw upper banana
+    ctx.lineWidth = 0.5;
+    draw_upper_banana(x + 1*R, y - 4 * R, 1.2*R, 0.5*R, mod.includes("UBAN"));
 
     y-= 0.75 * R;
 
@@ -230,7 +246,6 @@ function draw_clarinet_fingering(x,y,R, note) {
     draw_drop_left(x-1.2*R, y, R*0.8, R*0.4, mod.includes("⡀"));
     draw_drop_left(x-0.2*R, y-R+0.2*R, R*0.8, R*0.4, mod.includes("⠈"));
     draw_drop_left(x-0.2*R, y+0.2*R, R*0.8, R*0.4, mod.includes("⢀"));
-
 
     // banana keys
     y+= 22;

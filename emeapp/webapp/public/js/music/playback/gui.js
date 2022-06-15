@@ -2,7 +2,7 @@
 function guiOnNoteChange() {
     // on note change
 
-    $("#nrpage").innerText = `${player_ctx.i_page} / ${player_ctx.total_pages}`;
+    $("#nrpage").innerText = `${(player_ctx.i_page+1)} / ${player_ctx.total_pages}`;
 }
 
 function init_gui(tempo) {
@@ -46,6 +46,9 @@ $("#pause").onclick = function () {
         this.classList.remove("btn-danger");
         this.classList.add("btn-light");
 
+        $("#play").classList.add("btn-danger");
+        $("#play").classList.remove("btn-light");
+
         player_ctx.start();
 
         $("#bpmrange").disabled = true;
@@ -55,6 +58,9 @@ $("#pause").onclick = function () {
 $("#stop").onclick = function () {
     $("#play").classList.add("btn-light");
     $("#play").classList.remove("btn-danger");
+
+    $("#pause").classList.add("btn-light");
+    $("#pause").classList.remove("btn-danger");
 
     player_ctx.stop();
 
@@ -115,6 +121,8 @@ $("#show-notes").onclick = function () {
         $("#show-notes-ind").classList.remove("ra-sound-on");
         $("#show-notes-ind").classList.add("ra-sound-off");
     }
+
+    player_ctx.invalidate_canvas();
 };
 
 $("#show-instrument").onclick = function () {
@@ -125,4 +133,29 @@ $("#show-instrument").onclick = function () {
     } else {
         $("#show-instrument-ind").classList.add("ra-cancel");
     }
+
+    player_ctx.invalidate_canvas();
 };
+
+
+document.onkeydown = function(e) {
+  switch(e.code) {
+    case "Space": $("#pause").click(); break;
+    case "Backspace": $("#stop").click(); break;
+    case "Enter":
+        $("#play").classList.remove("btn-danger");
+        $("#play").classList.add("btn-light");
+
+        player_ctx.reset();
+
+        $("#bpmrange").disabled = false;
+      break;
+    case "ArrowLeft": $("#prev").click(); break;
+    case "ArrowRight": $("#next").click(); break;
+    default: return;
+  }
+
+  e.preventDefault();
+  e.stopPropagation();
+  return false;
+}

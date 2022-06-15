@@ -108,6 +108,8 @@ const player_ctx = {
   },
 
   set_page(p) {
+    if (p<0) p = 0;
+
     this.is_playing = false;
     this.time_next_note = 1;
     this.i_note = p * ropts.notes_per_page;
@@ -116,8 +118,13 @@ const player_ctx = {
     this.on_notes = [];
 
     // render once
+    this.invalidate_canvas();
+  },
+
+  invalidate_canvas() {
     animate(0, ropts.note_interval*2, 0);
 
+    const p = this.i_page;
     this.i_note = p * ropts.notes_per_page;
     this.i_line = 0;
     this.i_page = p;
@@ -127,7 +134,6 @@ const player_ctx = {
 const note_player = new NotePlayer("clarinet_bb");
 
 function animate(t, dt, telapsed) {
-
   // time interval between notes played
   player_ctx.time_next_note += dt;
   if (player_ctx.time_next_note > ropts.note_interval) {
@@ -145,7 +151,7 @@ function animate(t, dt, telapsed) {
           player_ctx.on_notes.push(player_ctx.notes.slice(note_offset, note_offset + ropts.notes_per_line));
         }
 
-        player_ctx.i_page++;
+        //player_ctx.i_page++;
 
         player_ctx.on_note_func();
       }
